@@ -2,19 +2,13 @@ import React from 'react';
 import BookCard from './BookCard';
 
 
-class BookList extends React.Component {
+const BookList = (props) => {
+    const books = props.books.map((book) => {
+        return <BookCard />
+    });
 
-    render(){
-        return (
-           <BookCard />
-        );
-    }
-
-
-}
-
-
-
+    return <div>{books}</div>
+};
 
 
 export default BookList;

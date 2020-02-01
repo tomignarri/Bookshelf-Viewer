@@ -7,19 +7,23 @@ import UserSearch from './UserSearch';
 class App extends React.Component {
     state = { books: [] }
 
-    onSearchSubmit = async term => {
-        const response = await goodreads.get('/owned_books/user?format=xml', {
-            params: { id: term }
+    onSearchSubmit = async (term) => {
+        const response = await goodreads.get('review/list?v=2', {
+            params: { 
+                id: term,
+                key: '3sZmRXu71xYxamuJhPxCg'
+            }
         });
-    
-        this.setState({ books: response.data.results });
+
+        console.log(response);
+        //this.setState({ books: response.data.results });
     }
 
     render(){
         return (
             <div>
                 <UserSearch onSubmit={this.onSearchSubmit} />
-                <BookList />
+                <BookList books={this.state.books} />
             </div>    
         );
     };

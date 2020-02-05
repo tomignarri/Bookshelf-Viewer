@@ -2,6 +2,7 @@ import React from 'react';
 import goodreads from '../api/goodreads';
 import BookList from './BookList';
 import UserSearch from './UserSearch';
+var convert = require('xml-js');
 
 
 class App extends React.Component {
@@ -15,7 +16,11 @@ class App extends React.Component {
             }
         });
 
-        console.log(response);
+        var xml = response.data;
+        var result = convert.xml2json(xml, {compact: true, spaces: 4});
+        
+        result = JSON.parse(result);
+        console.log(result);
         //this.setState({ books: response.data.results });
     }
 

@@ -20,7 +20,8 @@ class App extends React.Component {
         var result = convert.xml2json(xml, {compact: true, spaces: 4});
         
         result = JSON.parse(result);
-        console.log(result);
+        console.log(result.GoodreadsResponse.reviews.review[0].book.title);
+        
         //this.setState({ books: response.data.results });
     }
 

@@ -6,7 +6,8 @@ var convert = require('xml-js');
 
 
 class App extends React.Component {
-    state = { books: [] }
+    state = { books: [] };
+
 
     onSearchSubmit = async (term) => {
         const response = await goodreads.get('review/list?v=2', {
@@ -20,9 +21,24 @@ class App extends React.Component {
         var result = convert.xml2json(xml, {compact: true, spaces: 4});
         
         result = JSON.parse(result);
-        console.log(result.GoodreadsResponse.reviews.review[0].book.title);
+        var bookArr = result.GoodreadsResponse.reviews.review
+        console.log(bookArr);
+
+        var bookSet = [];
+
+        for(var i = 0;i < bookArr.length; i++){
+            var bookData = new Object();
+            bookData.title = result.GoodreadsResponse.reviews.review[i].book.title;
+            bookData.cover = result.GoodreadsResponse.reviews.review[i].book.image_url;
+            bookData.author = result.GoodreadsResponse.reviews.review[i].book.authors.author.name;
+            bookSet.push(bookData);
+        }
+
+        console.log(bookSet);
+
+        this.setState({ books: bookSet });
+        //console.log(this.state.books);
         
-        //this.setState({ books: response.data.results });
     }
 
     render(){

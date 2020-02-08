@@ -28,16 +28,17 @@ class App extends React.Component {
 
         for(var i = 0;i < bookArr.length; i++){
             var bookData = new Object();
-            bookData.title = result.GoodreadsResponse.reviews.review[i].book.title;
-            bookData.cover = result.GoodreadsResponse.reviews.review[i].book.image_url;
-            bookData.author = result.GoodreadsResponse.reviews.review[i].book.authors.author.name;
+            bookData.id = result.GoodreadsResponse.reviews.review[i].book.id._text;
+            bookData.title = result.GoodreadsResponse.reviews.review[i].book.title._text;
+            bookData.cover = result.GoodreadsResponse.reviews.review[i].book.image_url._text;
+            bookData.author = result.GoodreadsResponse.reviews.review[i].book.authors.author.name._text;
             bookSet.push(bookData);
         }
+       
 
-        console.log(bookSet);
 
         this.setState({ books: bookSet });
-        //console.log(this.state.books);
+        console.log(this.state.books);
         
     }
 

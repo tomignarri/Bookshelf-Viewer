@@ -8,7 +8,7 @@ class BookCard extends React.Component {
 
     render(){
         return (
-           <div className="col-sm col-md-4">
+           <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3 text-center border">
                <div>{this.props.book.title}</div>
                <img alt="missing cover" src={this.props.book.cover} />
                <div>{this.props.book.author}</div>

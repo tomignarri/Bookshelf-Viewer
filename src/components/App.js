@@ -46,7 +46,11 @@ class App extends React.Component {
         return (
             <div>
                 <UserSearch onSubmit={this.onSearchSubmit} />
-                <BookList books={this.state.books} />
+                <div className="container-fluid">
+                  <BookList books={this.state.books} />
+                </div>
+                
+
             </div>    
         );
     };

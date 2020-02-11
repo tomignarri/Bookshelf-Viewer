@@ -14,7 +14,7 @@ class UserSearch extends React.Component {
         return (
             <div>
                 <nav className="navbar navbar-light bg-light">
-                  <a className="navbar-brand">Navbar</a>
+                  {/* <a className="navbar-brand">Navbar</a> */}
                   <form onSubmit={this.onFormSubmit} className="form-inline">
                         <label>Search User</label>
                         <input type="text" 

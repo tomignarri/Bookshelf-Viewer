@@ -2,7 +2,7 @@
   "name": "goodreads-bookshelf",
   "version": "0.1.0",
   "engines": {
-    "node": "12.13.0"
+    "node": "^13.8.0"
   },
   "private": true,
   "dependencies": {

@@ -16,12 +16,16 @@ class UserSearch extends React.Component {
                 <nav className="navbar navbar-light bg-light">
                   {/* <a className="navbar-brand">Navbar</a> */}
                   <form onSubmit={this.onFormSubmit} className="form-inline">
-                        <label>Search User</label>
+                        <label>Search Author</label>
                         <input type="text" 
                           value={this.state.term} 
                           onChange={(e) => this.setState({ term: e.target.value })} 
                           className="form-control mr-sm-2"></input>
-                        <input type="submit" value="Submit" className="btn btn-outline-success my-2 my-sm-0"></input>
+                        <input 
+                          type="submit" 
+                          value="Submit" 
+                          className="btn btn-outline-success my-2 my-sm-0">
+                        </input>
                   </form>
                 </nav>
                                

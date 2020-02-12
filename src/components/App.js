@@ -24,24 +24,24 @@ class App extends React.Component {
         var result = convert.xml2json(xml, {compact: true, spaces: 4});
         
         result = JSON.parse(result);
-        // var bookArr = result.GoodreadsResponse.reviews.review
-        console.log(result);
+        var bookSearchArr = result.GoodreadsResponse.search.results.work
+        console.log(bookSearchArr);
 
-        // var bookSet = [];
+        var bookSet = [];
 
-        // for(var i = 0;i < bookArr.length; i++){
-        //     var bookData = new Object();
-        //     bookData.id = result.GoodreadsResponse.reviews.review[i].book.id._text;
-        //     bookData.title = result.GoodreadsResponse.reviews.review[i].book.title._text;
-        //     bookData.cover = result.GoodreadsResponse.reviews.review[i].book.image_url._text;
-        //     bookData.author = result.GoodreadsResponse.reviews.review[i].book.authors.author.name._text;
-        //     bookSet.push(bookData);
-        // }
+        for(var i = 0;i < bookSearchArr.length; i++){
+            var bookData = new Object();
+            bookData.id = bookSearchArr[i].best_book.id._text;
+            bookData.title = bookSearchArr[i].best_book.title._text;;
+            bookData.cover = bookSearchArr[i].best_book.image_url._text;
+            bookData.author = bookSearchArr[i].best_book.author.name._text;
+            bookSet.push(bookData);
+        }
        
 
 
-        // this.setState({ books: bookSet });
-        // console.log(this.state.books);
+        this.setState({ books: bookSet });
+        console.log(this.state.books);
         
     }
 

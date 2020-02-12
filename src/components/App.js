@@ -2,6 +2,7 @@ import React from 'react';
 import goodreads from '../api/goodreads';
 import BookList from './BookList';
 import UserSearch from './UserSearch';
+import Gallery from './Gallery';
 var convert = require('xml-js');
 
 
@@ -51,6 +52,7 @@ class App extends React.Component {
                 <UserSearch onSubmit={this.onSearchSubmit} />
                 <div className="container-fluid">
                   <BookList books={this.state.books} />
+                  <Gallery books={this.state.books} />
                 </div>
                 
 

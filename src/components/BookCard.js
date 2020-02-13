@@ -1,4 +1,5 @@
 import React from 'react';
+import BookDisplay from './BookDisplay';
 
 
 class BookCard extends React.Component {
@@ -7,7 +8,7 @@ class BookCard extends React.Component {
     // }
 
     showBookId = (id) => {
-        console.log(id);
+        this.props.bookSelected(id);
     };
 
     render(){

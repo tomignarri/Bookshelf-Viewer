@@ -3,6 +3,7 @@ import goodreads from '../api/goodreads';
 import BookList from './BookList';
 import UserSearch from './UserSearch';
 import Gallery from './Gallery';
+import BookDisplay from './BookDisplay';
 var convert = require('xml-js');
 
 
@@ -44,6 +45,11 @@ class App extends React.Component {
         console.log(this.state.books);
         
     }
+
+
+
+
+
 
     render(){
         return (

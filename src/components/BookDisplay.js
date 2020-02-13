@@ -16,7 +16,7 @@ class BookDisplay extends React.Component {
         //     return <BookCard />
         // } 
         
-        return <div></div>
+        return <div>Here: {this.props.selectedBook}</div>
 
     }
 }

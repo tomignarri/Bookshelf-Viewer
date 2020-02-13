@@ -16,7 +16,12 @@ class BookDisplay extends React.Component {
         //     return <BookCard />
         // } 
         
-        return <div>Here: {this.props.selectedBook}</div>
+        return (
+            <div className='col-12'>
+                {this.props.selectedBook.title}
+                <img alt="cover" src={this.props.selectedBook.cover}></img>
+            </div>
+        ); 
 
     }
 }

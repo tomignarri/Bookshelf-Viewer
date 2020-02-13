@@ -6,12 +6,12 @@ import BookDisplay from './BookDisplay';
 
 class Gallery extends React.Component {
   state = {
-      bookId: ''
+      bookToDisplay: {}
   };
 
-  bookSelected = id => {
-    this.setState({bookId: id}); 
-    console.log(this.state.bookId);       
+  bookSelected = book => {
+    this.setState({bookToDisplay: book}); 
+    console.log(this.state.bookToDisplay);       
   }
   
   render(){
@@ -23,7 +23,7 @@ class Gallery extends React.Component {
       
           return(
             <div className="row">{books}
-            <BookDisplay selectedBook={this.state.bookId}></BookDisplay>
+            <BookDisplay selectedBook={this.state.bookToDisplay}></BookDisplay>
             </div>
           ); 
   };

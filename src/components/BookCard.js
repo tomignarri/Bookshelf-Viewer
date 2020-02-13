@@ -7,15 +7,15 @@ class BookCard extends React.Component {
     //     super(props);
     // }
 
-    showBookId = (id) => {
-        this.props.bookSelected(id);
+    showBookDisplay = (book) => {
+        this.props.bookSelected(book);
     };
 
     render(){
         return (
            <div 
              className="col-xs-12 col-sm-6 col-md-4 col-lg-3 text-center border"
-             onClick={() => this.showBookId(this.props.book.id)}>
+             onClick={() => this.showBookDisplay(this.props.book)}>
                <div>{this.props.book.title}</div>
                <img alt="missing cover" src={this.props.book.cover} />
            </div>

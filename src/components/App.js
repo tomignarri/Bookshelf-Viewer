@@ -39,17 +39,10 @@ class App extends React.Component {
             bookSet.push(bookData);
         }
        
-
-
         this.setState({ books: bookSet });
         console.log(this.state.books);
         
     }
-
-
-
-
-
 
     render(){
         return (
@@ -61,8 +54,6 @@ class App extends React.Component {
                   {/* send books */}
                   <Gallery books={this.state.books} />
                 </div>
-                
-
             </div>    
         );
     };

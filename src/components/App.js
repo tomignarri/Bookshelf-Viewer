@@ -10,7 +10,6 @@ class App extends React.Component {
     state = { books: [] };
 
 
-    //https://cors-anywhere.herokuapp.com/https://www.goodreads.com/search/search_type=books&search%5Bfield%5D=author?q=hemin&key=3sZmRXu71xYxamuJhPxCg&field=author
 
     onSearchSubmit = async (term) => {
         const response = await goodreads.get('/search/index.xml', {
@@ -51,7 +50,9 @@ class App extends React.Component {
             <div>
                 <UserSearch onSubmit={this.onSearchSubmit} />
                 <div className="container-fluid">
-                  <BookList books={this.state.books} />
+                  {/* <BookList books={this.state.books} /> */}
+
+                  {/* send books */}
                   <Gallery books={this.state.books} />
                 </div>
                 

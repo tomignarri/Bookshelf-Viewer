@@ -14,8 +14,18 @@ class Gallery extends React.Component {
   //gallery sends all books to display
   //book card sends book index
   bookSelected = bookIndex => {
-    this.setState({bookIndex: bookIndex, createDisplay: true}); 
-    //console.log(this.state.bookIndex);       
+    this.setState({bookIndex: bookIndex, createDisplay: true});        
+  }
+
+  renderBookDisplay(){
+    if(this.state.createDisplay){
+      return (
+        <BookDisplay 
+          selectedBookIndex={this.state.bookIndex} 
+          allBooks={this.props.books}></BookDisplay>
+      )
+    }
+    return <div>no display</div>
   }
   
   render(){
@@ -26,12 +36,11 @@ class Gallery extends React.Component {
           });
       
           return(
-            <div className="row">{books}
-            <BookDisplay 
-              selectedBookIndex={this.state.bookIndex} 
-              allBooks={this.props.books}
-              createDisplay={this.state.createDisplay}></BookDisplay>
+            <div>
+                {this.renderBookDisplay()}
+                <div className="row">{books}</div>   
             </div>
+             
           ); 
   };
 }

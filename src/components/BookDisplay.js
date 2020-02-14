@@ -6,22 +6,31 @@ class BookDisplay extends React.Component {
     // constructor(props){
     //     super(props);
     // }
+
+
+ 
   
 
     render(){
         
         // if chosen book in not null, use 
         //id from bookcard to decide which book to display
-        // if(true){
-        //     return <BookCard />
-        // } 
+        if(this.props.createDisplay){
+            return (
+                <div className='col-12'>
+                    {/* {this.state.books[0].title} */}
+                    {this.props.selectedBookIndex} 
+                    and 
+                    {this.props.allBooks[this.props.selectedBookIndex].title}
+                    {/* <img alt="cover" src={this.props.allBooks.cover}></img> */}
+                </div>
+            ); 
+        } 
+
+
+        return <div></div>
         
-        return (
-            <div className='col-12'>
-                {this.props.selectedBook.title}
-                <img alt="cover" src={this.props.selectedBook.cover}></img>
-            </div>
-        ); 
+        
 
     }
 }

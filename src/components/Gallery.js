@@ -6,24 +6,31 @@ import BookDisplay from './BookDisplay';
 
 class Gallery extends React.Component {
   state = {
-      bookToDisplay: {}
+    bookIndex: 0,
+    createDisplay: false 
   };
 
-  bookSelected = book => {
-    this.setState({bookToDisplay: book}); 
-    console.log(this.state.bookToDisplay);       
+
+  //gallery sends all books to display
+  //book card sends book index
+  bookSelected = bookIndex => {
+    this.setState({bookIndex: bookIndex, createDisplay: true}); 
+    //console.log(this.state.bookIndex);       
   }
   
   render(){
-    const books = this.props.books.map((book) => {
+    const books = this.props.books.map((book, index) => {
               return (
-                <BookCard key={book.id} book={book} bookSelected={this.bookSelected} />
+                <BookCard key={book.id} book={book} bookSelected={this.bookSelected} index={index} />
               );
           });
       
           return(
             <div className="row">{books}
-            <BookDisplay selectedBook={this.state.bookToDisplay}></BookDisplay>
+            <BookDisplay 
+              selectedBookIndex={this.state.bookIndex} 
+              allBooks={this.props.books}
+              createDisplay={this.state.createDisplay}></BookDisplay>
             </div>
           ); 
   };

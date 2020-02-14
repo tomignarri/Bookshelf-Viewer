@@ -36,6 +36,7 @@ class App extends React.Component {
             bookData.title = bookSearchArr[i].best_book.title._text;;
             bookData.cover = bookSearchArr[i].best_book.image_url._text;
             bookData.author = bookSearchArr[i].best_book.author.name._text;
+            bookData.pubYear = bookSearchArr[i].original_publication_year._text;
             bookSet.push(bookData);
         }
        

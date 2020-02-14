@@ -1,6 +1,6 @@
 import React from 'react';
-import BookCard from './BookCard';
 import BookDisplayCard from './BookDisplayCard';
+
 
 
 class BookDisplay extends React.Component {
@@ -20,37 +20,29 @@ class BookDisplay extends React.Component {
     };
 
     
-
-
     render(){
             return (
-              <div className="container-fluid border border-warning h-75">
-                <div className="row">
-                  <div className="col-xs-1 col-sm-1 col-md-2">
-                    {/* render previous book */}
+                <div className="d-flex flex-row align-items-center justify-content-between">
                     <button 
-                        type='button' 
-                        className='btn btn-dark'
-                        onClick={() => this.scrollDisplayBook(this.state.selectedBookIndex - 1)}>
-                        Previous
-                      </button>
-                  </div>
+                      type='button' 
+                      className='btn btn-outline-light'
+                      onClick={() => this.scrollDisplayBook(this.state.selectedBookIndex - 1)}>
+                      Previous
+                    </button>
   
-                  {/* sendData to bookdisplaycard   currentIndex*/}
-                  <BookDisplayCard 
-                    currentIndex={this.state.selectedBookIndex} 
-                    currentBook={this.props.allBooks[this.state.selectedBookIndex]} /> 
-                  <div className="col-xs-1 col-sm-1 col-md-2">
+                      {/* send data to bookdisplaycard*/}
+                      <BookDisplayCard 
+                        currentIndex={this.state.selectedBookIndex} 
+                        currentBook={this.props.allBooks[this.state.selectedBookIndex]} /> 
                       {/* render next book */}
-                      <button 
-                        type='button' 
-                        className='btn btn-dark'
-                        onClick={() => this.scrollDisplayBook(this.state.selectedBookIndex + 1)}>
-                        Next
-                      </button>
-                  </div>
+                    <button 
+                      type='button' 
+                      className='btn btn-outline-light'
+                      onClick={() => this.scrollDisplayBook(this.state.selectedBookIndex + 1)}>
+                      Next
+                    </button>
                 </div>
-              </div>
+           
             ); 
     }
 }

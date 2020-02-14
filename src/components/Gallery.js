@@ -1,7 +1,7 @@
 import React from 'react';
-import BookList from './BookList';
 import BookCard from './BookCard';
 import BookDisplay from './BookDisplay';
+import '../styles/style.css';
 
 
 class Gallery extends React.Component {
@@ -20,17 +20,21 @@ class Gallery extends React.Component {
   renderBookDisplay(){
     if(this.state.createDisplay){
       return (
-        <div>
-          <button 
-            type='button' 
-            className='btn btn-dark'
-            onClick={this.closeBookDisplay}>
-            close
-          </button>
+        <div className='d-flex flex-column justify-content-center fixed-top h-100 bg'>
+          <div className='d-flex flex-column text-white text-center justify-content-center'>
+              {this.props.books[0].author}
+              <button 
+              type='button' 
+              className='btn btn-outline-light'
+              onClick={this.closeBookDisplay}>
+              close
+              </button>
+          </div>
+          
           <BookDisplay 
             selectedBookIndex={this.state.bookIndex} 
             allBooks={this.props.books}></BookDisplay>
-        </div>
+        </div>    
       )
     }
     return <div></div>

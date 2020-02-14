@@ -16,11 +16,10 @@ class BookDisplayCard extends React.Component {
         //id from bookcard to decide which book to display
   
             return (
-                <div className='col-xs-10 col-sm-10 col-md-8 text-center border'>
-                    {/* {this.state.books[0].title} */}
-                    card here
+                <div className='d-flex align-items-center text-white text-center flex-column'>
                     {this.props.currentBook.title}
-                    {/* <img alt="cover" src={this.props.allBooks.cover}></img> */}
+                    <img alt="cover" src={this.props.currentBook.cover}></img>
+                    {this.props.currentBook.pubYear}
                 </div>
             );
     };

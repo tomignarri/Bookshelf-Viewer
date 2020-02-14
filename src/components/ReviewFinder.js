@@ -1,34 +1,24 @@
 import React from 'react';
 
-
-class UserSearch extends React.Component {
-    state = { term: '' };
+class ReviewFinder extends React.Component {
 
     onFormSubmit = (event) => {
         event.preventDefault();
     
-        this.props.onSubmit(this.state.term);
+        this.props.onSearch(this.props.bookTitle);
     }
 
     render(){
         return (
             <div>
-                <nav className="navbar navbar-light bg-light">
                   <form onSubmit={this.onFormSubmit} className="form-inline">
                         <label>Search Author</label>
-                        <input type="text" 
-                          value={this.state.term} 
-                          onChange={(e) => this.setState({ term: e.target.value })} 
-                          className="form-control mr-sm-2"></input>
                         <input 
                           type="submit" 
                           value="Submit" 
                           className="btn btn-outline-success my-2 my-sm-0">
                         </input>
-                  </form>
-                </nav>
-                               
-                    
+                  </form>           
             </div>
         );    
     };
@@ -39,4 +29,4 @@ class UserSearch extends React.Component {
 
 
 
-export default UserSearch;
+export default ReviewFinder;

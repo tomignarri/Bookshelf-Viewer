@@ -16,7 +16,7 @@ class BookDisplayCard extends React.Component {
         //id from bookcard to decide which book to display
   
             return (
-                <div className='col-8'>
+                <div className='col-xs-10 col-sm-10 col-md-8 text-center border'>
                     {/* {this.state.books[0].title} */}
                     card here
                     {this.props.currentBook.title}

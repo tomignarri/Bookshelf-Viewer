@@ -20,13 +20,27 @@ class Gallery extends React.Component {
   renderBookDisplay(){
     if(this.state.createDisplay){
       return (
-        <BookDisplay 
-          selectedBookIndex={this.state.bookIndex} 
-          allBooks={this.props.books}></BookDisplay>
+        <div>
+          <button 
+            type='button' 
+            className='btn btn-dark'
+            onClick={this.closeBookDisplay}>
+            close
+          </button>
+          <BookDisplay 
+            selectedBookIndex={this.state.bookIndex} 
+            allBooks={this.props.books}></BookDisplay>
+        </div>
       )
     }
-    return <div>no display</div>
-  }
+    return <div></div>
+  };
+
+  closeBookDisplay = event => {
+    event.preventDefault();
+    this.setState({ createDisplay: false }); 
+  };
+
   
   render(){
     const books = this.props.books.map((book, index) => {
@@ -38,6 +52,7 @@ class Gallery extends React.Component {
           return(
             <div>
                 {this.renderBookDisplay()}
+      
                 <div className="row">{books}</div>   
             </div>
              

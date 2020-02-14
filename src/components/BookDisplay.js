@@ -1,48 +1,54 @@
 import React from 'react';
 import BookCard from './BookCard';
-import ScrollButton from './ScrollButton';
 import BookDisplayCard from './BookDisplayCard';
 
 
 class BookDisplay extends React.Component {
-    // constructor(props){
-    //     super(props);
-    // }
     state = {
       selectedBookIndex: this.props.selectedBookIndex
     };
 
 
+    scrollDisplayBook(newIndex){
+      const bookAmount = this.props.allBooks.length
+      if(newIndex < 0){
+        newIndex = bookAmount - 1;
+      } else if(newIndex === bookAmount){
+        newIndex = 0;
+      }
+      this.setState({ selectedBookIndex: newIndex })
+    };
+
+    
 
 
     render(){
-        // if chosen book in not null, use 
-        //id from bookcard to decide which book to display
-     
             return (
-              <div className="row">
-                <div className="col-2">
-                  {/* render previous book */}
-                  <button 
-                      type='button' 
-                      className='btn btn-dark'
-                      onClick={() => this.setState({ selectedBookIndex: this.state.selectedBookIndex - 1 })}>
-                      click
-                    </button>
-                </div>
-
-                {/* sendData to bookdisplaycard   currentIndex*/}
-                <BookDisplayCard 
-                  currentIndex={this.state.selectedBookIndex} 
-                  currentBook={this.props.allBooks[this.state.selectedBookIndex]} /> 
-                <div className="col-2">
-                    {/* render next book */}
+              <div className="container-fluid border border-warning h-75">
+                <div className="row">
+                  <div className="col-xs-1 col-sm-1 col-md-2">
+                    {/* render previous book */}
                     <button 
-                      type='button' 
-                      className='btn btn-dark'
-                      onClick={() => this.setState({ selectedBookIndex: this.state.selectedBookIndex + 1 })}>
-                      click
-                    </button>
+                        type='button' 
+                        className='btn btn-dark'
+                        onClick={() => this.scrollDisplayBook(this.state.selectedBookIndex - 1)}>
+                        Previous
+                      </button>
+                  </div>
+  
+                  {/* sendData to bookdisplaycard   currentIndex*/}
+                  <BookDisplayCard 
+                    currentIndex={this.state.selectedBookIndex} 
+                    currentBook={this.props.allBooks[this.state.selectedBookIndex]} /> 
+                  <div className="col-xs-1 col-sm-1 col-md-2">
+                      {/* render next book */}
+                      <button 
+                        type='button' 
+                        className='btn btn-dark'
+                        onClick={() => this.scrollDisplayBook(this.state.selectedBookIndex + 1)}>
+                        Next
+                      </button>
+                  </div>
                 </div>
               </div>
             ); 

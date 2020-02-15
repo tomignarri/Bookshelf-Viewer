@@ -24,7 +24,7 @@ class BookDisplay extends React.Component {
     render(){
             return (
               <div className='d-flex flex-column'>
-                <div className="d-flex flex-row align-items-center justify-content-between">
+                <div className="d-flex flex-row align-items-center justify-content-center">
                     <button 
                       type='button' 
                       className='btn btn-outline-light'

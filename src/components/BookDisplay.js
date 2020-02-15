@@ -38,7 +38,7 @@ class BookDisplay extends React.Component {
                       <i className="fas fa-angle-double-right"></i>
                     </button>
                   </div>
-                  <div className='d-flex flex-row align-items-center justify-content-between'>
+                  <div className='container-fluid p-5'>
                       {/* send data to bookdisplaycard*/}
                       <BookDisplayCard 
                         currentIndex={this.state.selectedBookIndex} 

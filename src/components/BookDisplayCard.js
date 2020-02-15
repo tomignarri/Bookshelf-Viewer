@@ -1,7 +1,7 @@
 import React from 'react';
 import goodreads from '../api/goodreads';
 var convert = require('xml-js');
-// var he = require('he');
+var he = require('he');
 
 
 
@@ -42,7 +42,8 @@ class BookDisplayCard extends React.Component {
     // The descriptions are full of html tags.
     removeHtmlTags(description){
         var stripedHtml = description.replace(/<[^>]+>/g, '');
-        return stripedHtml;
+        var decodedStripedHtml = he.decode(stripedHtml);
+        return decodedStripedHtml;
     }
     
 
@@ -83,16 +84,16 @@ class BookDisplayCard extends React.Component {
         //id from bookcard to decide which book to display
   
             return (
-                <div className='d-flex align-items-center text-white text-center flex-column'>
-                    {this.props.currentBook.title}
-                    {this.props.currentBook.pubYear}
+              <div className='row'>
+                <div className='col-12 col-sm-12 col-m-5 col-lg-5 text-white text-center'>
                     {this.displayPresentImage()}
-                    
-
-                    {this.state.description}
-
-                    
-                </div>
+                </div>  
+                <div className='col-12 col-sm-12 col-m-7 col-lg-7 text-white'>
+                  <h3>{this.props.currentBook.title}</h3>
+                  <h5>{this.props.currentBook.pubYear}</h5>
+                  <div>{this.state.description}</div>
+                </div>  
+              </div>
             );
     };
 }

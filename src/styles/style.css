@@ -13,3 +13,7 @@ body {
 body {
   background-color: black;
 }
+
+.bookCard:hover {
+  background-color: blanchedalmond;
+}

@@ -1,7 +1,5 @@
 import React from 'react';
 import goodreads from '../api/goodreads';
-import ReviewFinder from './ReviewFinder';
-import BookInfoCard from './BookInfoCard';
 var convert = require('xml-js');
 
 
@@ -10,47 +8,44 @@ var convert = require('xml-js');
 
 class BookDisplayCard extends React.Component {
     state = {
-      bookInfo: {},
-      searchDone: false
+        description: ''
+       
     };
 
-
-    onSearchReviews = async (bookInfo) => {
+    fetchInfo = async () => {
         const response = await goodreads.get('/book/title.xml', {
-            params: { 
-                key: '3sZmRXu71xYxamuJhPxCg',
-                title: bookInfo
-            }  
-        });
-
-
-        var xml = response.data;
-        var result = convert.xml2json(xml, {compact: true, spaces: 4});
-
-        result = JSON.parse(result);
-
-        bookInfo = result.GoodreadsResponse.book;
-
-        console.log(bookInfo);
-        this.setState({ bookInfo: bookInfo, searchDone: true});
-
-        console.log(this.state.bookInfo);
-
-
+                    params: { 
+                        key: '3sZmRXu71xYxamuJhPxCg',
+                        title: this.props.currentBook.title
+                    }  
+                });
         
-    };
-
-    displayBookInfo(){
-      if(this.state.searchDone){
-        return <BookInfoCard bookInfo={this.state.bookInfo} />
-      }
-      return <div>space for info here</div>
-    };
-
+            var xml = response.data;
+            var result = convert.xml2json(xml, {compact: true, spaces: 4});
+        
+            result = JSON.parse(result);
+        
+            var bookInfo = result.GoodreadsResponse.book;
+        
+          
+            this.setState({ description: bookInfo.description._cdata });   
+    };   
+    
     
 
+    componentDidMount(){
+      this.fetchInfo();
+    }
+    
+    componentDidUpdate(prevProps){
+      if(this.props.currentBook !== prevProps.currentBook){
+        this.fetchInfo();
+      }
+    }
+         
 
 
+    
     render(){
 
 
@@ -63,8 +58,9 @@ class BookDisplayCard extends React.Component {
                     {this.props.currentBook.title}
                     <img alt="cover" src={this.props.currentBook.cover}></img>
                     {this.props.currentBook.pubYear}
-                    <ReviewFinder bookTitle={this.props.currentBook.title} onSearch={this.onSearchReviews} />
-                    {this.displayBookInfo()}
+
+                    {this.state.description}
+                    
                 </div>
             );
     };

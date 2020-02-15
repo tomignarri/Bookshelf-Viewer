@@ -66,22 +66,24 @@ class BookDisplayCard extends React.Component {
         this.fetchInfo();
       }
     }
-         
+    
+    displayPresentImage(){
+        if(this.state.isbn === undefined){
+          return <img alt="cover" src={this.props.currentBook.cover}></img>;
+        }
+        return <img alt="cover" src={this.state.coverUrl}></img>;
+    }
 
 
     
     render(){
-
-
-        
         // if chosen book in not null, use 
         //id from bookcard to decide which book to display
   
             return (
                 <div className='d-flex align-items-center text-white text-center flex-column'>
                     {this.props.currentBook.title}
-                    <img alt="cover" src={this.state.coverUrl}></img>
-                    {/* <img alt="cover" src={this.props.currentBook.cover}></img> */}
+                    {this.displayPresentImage()}
                     {this.props.currentBook.pubYear}
 
                     {this.state.description}

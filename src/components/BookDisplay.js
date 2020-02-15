@@ -23,6 +23,7 @@ class BookDisplay extends React.Component {
     
     render(){
             return (
+              <div className='d-flex flex-column'>
                 <div className="d-flex flex-row align-items-center justify-content-between">
                     <button 
                       type='button' 
@@ -30,18 +31,20 @@ class BookDisplay extends React.Component {
                       onClick={() => this.scrollDisplayBook(this.state.selectedBookIndex - 1)}>
                       Previous
                     </button>
-  
-                      {/* send data to bookdisplaycard*/}
-                      <BookDisplayCard 
-                        currentIndex={this.state.selectedBookIndex} 
-                        currentBook={this.props.allBooks[this.state.selectedBookIndex]} /> 
-                      {/* render next book */}
                     <button 
                       type='button' 
                       className='btn btn-outline-light'
                       onClick={() => this.scrollDisplayBook(this.state.selectedBookIndex + 1)}>
                       Next
                     </button>
+                  </div>
+                  <div className='d-flex flex-row align-items-center justify-content-between'>
+                      {/* send data to bookdisplaycard*/}
+                      <BookDisplayCard 
+                        currentIndex={this.state.selectedBookIndex} 
+                        currentBook={this.props.allBooks[this.state.selectedBookIndex]} /> 
+                      {/* render next book */}
+                  </div>
                 </div>
            
             ); 

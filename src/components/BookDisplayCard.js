@@ -1,5 +1,6 @@
 import React from 'react';
 import goodreads from '../api/goodreads';
+import openLibrary from '../api/openlibrary'
 var convert = require('xml-js');
 
 
@@ -8,7 +9,9 @@ var convert = require('xml-js');
 
 class BookDisplayCard extends React.Component {
     state = {
-        description: ''
+        description: '',
+        coverUrl: '',
+        isbn: ''
        
     };
 
@@ -27,14 +30,35 @@ class BookDisplayCard extends React.Component {
         
             var bookInfo = result.GoodreadsResponse.book;
         
-          
-            this.setState({ description: bookInfo.description._cdata });   
-    };   
+            this.setState({ description: bookInfo.description._cdata, isbn: bookInfo.isbn._cdata }); 
+            console.log(bookInfo);  
+            this.fetchImage();
+    };  
+    
+    // fetchImage = async (isbn) => {
+    //     const response = await openLibrary.get('/$value-$size.jpg', {
+    //         params: {
+    //             value: isbn,
+    //             size: 'L'
+    //         }
+    //     });
+
+    //     console.log(response);
+
+    //     //this.setState({ coverUrl: response });
+    // }
+    fetchImage() {
+        var coverUrl = 'http://covers.openlibrary.org/b/isbn/' + this.state.isbn + '-L.jpg';
+        this.setState({ coverUrl: coverUrl });
+        console.log(this.state);
+    }
     
     
 
     componentDidMount(){
       this.fetchInfo();
+      
+    //   this.fetchImage(this.state.isbn);
     }
     
     componentDidUpdate(prevProps){
@@ -56,10 +80,12 @@ class BookDisplayCard extends React.Component {
             return (
                 <div className='d-flex align-items-center text-white text-center flex-column'>
                     {this.props.currentBook.title}
-                    <img alt="cover" src={this.props.currentBook.cover}></img>
+                    <img alt="cover" src={this.state.coverUrl}></img>
+                    {/* <img alt="cover" src={this.props.currentBook.cover}></img> */}
                     {this.props.currentBook.pubYear}
 
                     {this.state.description}
+
                     
                 </div>
             );

@@ -21,14 +21,16 @@ class Gallery extends React.Component {
     if(this.state.createDisplay){
       return (
         <div className='d-flex flex-column fixed-top bg'>
-          <div className='d-flex flex-column text-white text-center align-items-center justify-content-center'>
-              {this.props.books[0].author}
+          <div className='d-flex flex-row text-white align-items-center p-2 position-fixed'>
               <button 
               type='button' 
               className='btn btn-outline-light'
               onClick={this.closeBookDisplay}>
               close
               </button>
+          </div>
+          <div className='d-flex flex-row text-center'>
+            {this.props.books[0].author}
           </div>
           
           <BookDisplay 

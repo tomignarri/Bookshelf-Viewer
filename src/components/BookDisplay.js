@@ -29,13 +29,13 @@ class BookDisplay extends React.Component {
                       type='button' 
                       className='btn btn-outline-light'
                       onClick={() => this.scrollDisplayBook(this.state.selectedBookIndex - 1)}>
-                      Previous
+                      <i className="fas fa-angle-double-left"></i>
                     </button>
                     <button 
                       type='button' 
                       className='btn btn-outline-light'
                       onClick={() => this.scrollDisplayBook(this.state.selectedBookIndex + 1)}>
-                      Next
+                      <i className="fas fa-angle-double-right"></i>
                     </button>
                   </div>
                   <div className='d-flex flex-row align-items-center justify-content-between'>

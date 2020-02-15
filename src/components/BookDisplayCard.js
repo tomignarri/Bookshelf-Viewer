@@ -1,6 +1,7 @@
 import React from 'react';
 import goodreads from '../api/goodreads';
 var convert = require('xml-js');
+// var he = require('he');
 
 
 
@@ -23,22 +24,33 @@ class BookDisplayCard extends React.Component {
                 });
         
             var xml = response.data;
+            
             var result = convert.xml2json(xml, {compact: true, spaces: 4});
-        
+            
             result = JSON.parse(result);
         
             var bookInfo = result.GoodreadsResponse.book;
+            
         
-            this.setState({ description: bookInfo.description._cdata, isbn: bookInfo.isbn._cdata }); 
-            console.log(bookInfo);  
+            this.setState({ 
+                description: this.removeHtmlTags(bookInfo.description._cdata), 
+                isbn: bookInfo.isbn._cdata 
+            });   
             this.fetchImage();
     };  
+
+    // The descriptions are full of html tags.
+    removeHtmlTags(description){
+        var stripedHtml = description.replace(/<[^>]+>/g, '');
+        return stripedHtml;
+    }
     
 
     fetchImage() {
         var coverUrl = 'http://covers.openlibrary.org/b/isbn/' + this.state.isbn + '-L.jpg';
         this.setState({ coverUrl: coverUrl });
-        console.log(this.state);
+        
+        
     }
     
     
@@ -48,6 +60,7 @@ class BookDisplayCard extends React.Component {
       
     //   this.fetchImage(this.state.isbn);
     }
+
     
     componentDidUpdate(prevProps){
       if(this.props.currentBook !== prevProps.currentBook){
@@ -55,6 +68,7 @@ class BookDisplayCard extends React.Component {
       }
     }
     
+    // Display the goodreads thumbnail if an open library image is not available.
     displayPresentImage(){
         if(this.state.isbn === undefined){
           return <img alt="cover" src={this.props.currentBook.cover}></img>;
@@ -71,8 +85,9 @@ class BookDisplayCard extends React.Component {
             return (
                 <div className='d-flex align-items-center text-white text-center flex-column'>
                     {this.props.currentBook.title}
-                    {this.displayPresentImage()}
                     {this.props.currentBook.pubYear}
+                    {this.displayPresentImage()}
+                    
 
                     {this.state.description}
 

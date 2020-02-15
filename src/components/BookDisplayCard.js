@@ -50,12 +50,9 @@ class BookDisplayCard extends React.Component {
     fetchImage() {
         var coverUrl = 'http://covers.openlibrary.org/b/isbn/' + this.state.isbn + '-L.jpg';
         this.setState({ coverUrl: coverUrl });
-        
-        
     }
     
     
-
     componentDidMount(){
       this.fetchInfo();
       

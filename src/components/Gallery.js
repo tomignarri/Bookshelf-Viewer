@@ -20,7 +20,7 @@ class Gallery extends React.Component {
   renderBookDisplay(){
     if(this.state.createDisplay){
       return (
-        <div className='d-flex flex-column fixed-top h-100 bg'>
+        <div className='d-flex flex-column fixed-top bg'>
           <div className='d-flex flex-column text-white text-center align-items-center justify-content-center'>
               {this.props.books[0].author}
               <button 
@@ -65,41 +65,6 @@ class Gallery extends React.Component {
 }
 
 
-
-
-
-
-
-// const Gallery = (props) => {
-    
-  
-//   // this.setState = {
-//     //   bookId: ''
-//     // };
-
-
-//     const books = props.books.map((book) => {
-//         return (
-//           <BookCard key={book.id} book={book} />
-//         );
-//     });
-
-
-//     const bookSelected = id => {
-//         console.log("hello");  
-//         // this.setState({bookId: id});       
-//     }
-    
-//     return(
-//       <div className="row">{books}
-//       <BookDisplay displaySelectedBook={this.bookSelected}></BookDisplay>
-//       </div>
-//     ); 
-
-
-
-
-// };
 
 
 

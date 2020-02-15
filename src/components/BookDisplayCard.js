@@ -1,6 +1,5 @@
 import React from 'react';
 import goodreads from '../api/goodreads';
-import openLibrary from '../api/openlibrary'
 var convert = require('xml-js');
 
 
@@ -35,18 +34,7 @@ class BookDisplayCard extends React.Component {
             this.fetchImage();
     };  
     
-    // fetchImage = async (isbn) => {
-    //     const response = await openLibrary.get('/$value-$size.jpg', {
-    //         params: {
-    //             value: isbn,
-    //             size: 'L'
-    //         }
-    //     });
 
-    //     console.log(response);
-
-    //     //this.setState({ coverUrl: response });
-    // }
     fetchImage() {
         var coverUrl = 'http://covers.openlibrary.org/b/isbn/' + this.state.isbn + '-L.jpg';
         this.setState({ coverUrl: coverUrl });

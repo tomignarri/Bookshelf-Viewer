@@ -1,5 +1,4 @@
 import React from 'react';
-import BookDisplay from './BookDisplay';
 import '../styles/style.css';
 
 

@@ -9,44 +9,41 @@ var convert = require('xml-js');
 class BookDisplayCard extends React.Component {
     state = {
         coverUrl: '',
+        // coverAvailable: false
         // isbn: ''
     };
-
-    // fetchInfo = async () => {
-    //     const response = await goodreads.get('/book/title.xml', {
-    //                 params: { 
-    //                     key: '3sZmRXu71xYxamuJhPxCg',
-    //                     title: this.props.currentBook.title
-    //                 }  
-    //             });
+ 
         
-    //         var xml = response.data;
+   
             
-    //         var result = convert.xml2json(xml, {compact: true, spaces: 4});
-            
-    //         result = JSON.parse(result);
-        
-    //         var bookInfo = result.GoodreadsResponse.book;
-            
-        
-    //         this.setState({ 
-    //             description: this.removeHtmlTags(bookInfo.description._cdata), 
-    //             isbn: bookInfo.isbn._cdata 
-    //         });   
-    //         this.fetchImage();
-    // };  
+ 
 
-    // // The descriptions are full of html tags.
-    // removeHtmlTags(description){
-    //     var stripedHtml = description.replace(/<[^>]+>/g, '');
-    //     var decodedStripedHtml = he.decode(stripedHtml);
-    //     return decodedStripedHtml;
-    // }
-    
+    fetchImage = async () => {
+        var coverUrl = await 'http://covers.openlibrary.org/b/isbn/' + this.props.currentBook.isbn + '-L.jpg';
+        
+        console.log(coverUrl);
 
-    fetchImage() {
-        var coverUrl = 'http://covers.openlibrary.org/b/isbn/' + this.props.currentBook.isbn + '-L.jpg';
-        this.setState({ coverUrl: coverUrl });
+        let getSize = new Promise((resolve, reject)=>{
+          
+          var img = new Image();
+          img.addEventListener("load", function(){
+              if(this.naturalWidth > 1){
+                console.log("true");
+                resolve(true);
+              } 
+              resolve(false);
+          });
+          img.src = coverUrl;
+          
+        });
+
+        let coverAvailable = await getSize;
+          
+        if(coverAvailable){
+          this.setState({ coverUrl: coverUrl });
+        } else if(!coverAvailable){
+          this.setState({ coverUrl: this.props.currentBook.cover });
+        }
     }
     
     
@@ -57,19 +54,30 @@ class BookDisplayCard extends React.Component {
     
     componentDidUpdate(prevProps){
       if(this.props.currentBook !== prevProps.currentBook){
+        // this.setState({ coverUrl: this.props.currentBook.cover });
         this.fetchImage();
       }
-      
-    }
-    
-    // Display the goodreads thumbnail if an open library image is not available.
-    displayPresentImage(){
-        if(this.props.currentBook.isbn === undefined){
-          return <img alt="cover" src={this.props.currentBook.cover}></img>;
-        }
-        return <img alt="cover" src={this.state.coverUrl}></img>;
     }
 
+
+    
+    // Read response image size.
+    getMeta(url){   
+          var img = new Image();
+          img.addEventListener("load", function(){
+              if(this.naturalWidth > 1){
+                console.log("true");
+                return true;
+
+              } 
+              return false;
+              
+          });
+          img.src = url;
+    }
+    
+
+    
 
     
     render(){
@@ -79,7 +87,8 @@ class BookDisplayCard extends React.Component {
             return (
               <div className='row'>
                 <div className='col-12 col-sm-12 col-m-5 col-lg-5 text-white text-center'>
-                    {this.displayPresentImage()}
+                    <img alt="cover" src={this.state.coverUrl}></img>
+                    
                 </div>  
                 <div className='col-12 col-sm-12 col-m-7 col-lg-7 text-white'>
                   <h3>{this.props.currentBook.title}</h3>

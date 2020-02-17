@@ -12,41 +12,7 @@ class App extends React.Component {
         books: [],
         authorId: '' 
     };
-
-
-
-    // onSearchSubmit = async (term) => {
-    //     const response = await goodreads.get('/search/index.xml', {
-    //         params: { 
-    //             q: term,
-    //             key: '3sZmRXu71xYxamuJhPxCg',
-    //             'search[field]': 'author',
-    //         }  
-    //     });
-
-    //     var xml = response.data;
-    //     var result = convert.xml2json(xml, {compact: true, spaces: 4});
-        
-    //     result = JSON.parse(result);
-    //     var bookSearchArr = result.GoodreadsResponse.search.results.work
-    //     console.log(bookSearchArr);
-
-    //     var bookSet = [];
-
-    //     for(var i = 0;i < bookSearchArr.length; i++){
-    //         var bookData = new Object();
-    //         bookData.id = bookSearchArr[i].best_book.id._text;
-    //         bookData.title = bookSearchArr[i].best_book.title._text;;
-    //         bookData.cover = bookSearchArr[i].best_book.image_url._text;
-    //         bookData.author = bookSearchArr[i].best_book.author.name._text;
-    //         bookData.pubYear = bookSearchArr[i].original_publication_year._text;
-    //         bookSet.push(bookData);
-    //     }
-       
-    //     this.setState({ books: bookSet });
-    //     console.log(this.state.books);
-        
-    // }
+  
 
     onSearchSubmit = async (term) => {
         const response = await goodreads.get(`/api/author_url/${term}`, {
@@ -106,7 +72,6 @@ class App extends React.Component {
               bookData.pubYear = bookSearchArr[i].publication_year._text;
               bookData.averageRating = bookSearchArr[i].average_rating._text;
               bookData.description = this.removeHtmlTags(bookSearchArr[i].description._text);
-            //   bookData.description = bookSearchArr[i].description._text;
               bookData.isbn = bookSearchArr[i].isbn._text;
               bookSet.push(bookData);
             }
@@ -129,7 +94,6 @@ class App extends React.Component {
             <div>
                 <UserSearch onSubmit={this.onSearchSubmit} />
                 <div className="container-fluid">
-                  {/* <BookList books={this.state.books} /> */}
 
                   {/* send books */}
                   <Gallery books={this.state.books} />

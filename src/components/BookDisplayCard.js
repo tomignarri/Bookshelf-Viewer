@@ -56,7 +56,7 @@ class BookDisplayCard extends React.Component {
     componentDidMount(){
       this.fetchInfo();
       
-    //   this.fetchImage(this.state.isbn);
+      this.fetchImage(this.state.isbn);
     }
 
     

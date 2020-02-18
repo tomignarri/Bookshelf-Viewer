@@ -13,10 +13,6 @@ class BookDisplayCard extends React.Component {
         // isbn: ''
     };
  
-        
-   
-            
- 
 
     fetchImage = async () => {
         var coverUrl = await 'http://covers.openlibrary.org/b/isbn/' + this.props.currentBook.isbn + '-L.jpg';
@@ -75,8 +71,6 @@ class BookDisplayCard extends React.Component {
           });
           img.src = url;
     }
-    
-
     
 
     

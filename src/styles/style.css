@@ -11,9 +11,25 @@ body {
 }
 
 body {
-  background-color: black;
+  background-color: white;
 }
 
-.bookCard:hover {
+/* :hover {
   background-color: blanchedalmond;
-}
+} */
+
+
+
+/* 
+https://www.webdesignerdepot.com/2014/05/8-simple-css3-transitions-that-will-wow-your-users/
+*/
+.galleryImage:hover
+{
+        box-shadow:
+                1px 1px #53a7ea,
+                2px 2px #53a7ea,
+                3px 3px #53a7ea;
+        -webkit-transform: translateX(-3px);
+        transform: translateX(-3px);
+        cursor: pointer;
+} 

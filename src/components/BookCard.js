@@ -16,7 +16,7 @@ class BookCard extends React.Component {
            <div 
              className="col-6 col-sm-6 col-md-4 col-lg-3 text-center py-3 my-2 bookCard"
              onClick={() => this.showBookDisplay(this.props.index)}>
-              <div class="box">  
+              <div className="box">  
                 <img alt="missing cover" src={this.props.book.cover} />
               </div>  
            </div>

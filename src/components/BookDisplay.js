@@ -6,7 +6,10 @@ import BookDisplayCard from './BookDisplayCard';
 
 class BookDisplay extends React.Component {
     state = {
-      selectedBookIndex: this.props.selectedBookIndex
+      selectedBookIndex: this.props.selectedBookIndex,
+      touchStartX: 0,
+      touchCurrentX: 0,
+      swipeThreshold: 75
     };
 
 
@@ -17,13 +20,50 @@ class BookDisplay extends React.Component {
       } else if(newIndex === bookAmount){
         newIndex = 0;
       }
-      this.setState({ selectedBookIndex: newIndex })
+      this.setState({ 
+        selectedBookIndex: newIndex,
+      });
+    };
+
+    touchStart = event => {
+      const touchObj = event.touches[0];
+      this.setState({
+        touchStartX: touchObj.clientX,
+        touchCurrentX: touchObj.clientX
+      })
+      //console.log('start   ' + this.state.touchStartX);
+    };
+
+    touchMove = event => {
+      const touchObj = event.touches[0];
+      this.setState({
+        touchCurrentX: touchObj.clientX,
+      })
+      
+    };
+
+    touchEnd = () => {
+      //var s = { touchStarted: false };
+     
+      console.log('start   ' + this.state.touchStartX);
+      console.log('end   ' + this.state.touchCurrentX);
+  
+      if (Math.abs(this.state.touchStartX - this.state.touchCurrentX) > this.state.swipeThreshold) 
+      {
+          var swipeDirection = this.state.touchStartX > this.state.touchCurrentX ? 1 : -1;
+          this.scrollDisplayBook(this.state.selectedBookIndex + swipeDirection);
+      }
+
     };
 
     
     render(){
             return (
-              <div className='d-flex flex-column'>
+              <div 
+                className='d-flex flex-column' 
+                onTouchStart={this.touchStart}
+                onTouchMove={this.touchMove}
+                onTouchEnd={this.touchEnd}>
                 <div className="d-flex flex-row align-items-center justify-content-center">
                     <button 
                       type='button' 

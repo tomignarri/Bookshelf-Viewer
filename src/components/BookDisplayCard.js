@@ -18,9 +18,30 @@ class BookDisplayCard extends React.Component {
         try{
           var coverUrl = await 'http://covers.openlibrary.org/b/isbn/' + this.props.currentBook.isbn + '-L.jpg';
           this.chooseImage(coverUrl);
-        } catch(err) {
-          alert("Image could not be found.");
+        } catch(error) {
           this.setState({ loadingCover: false});
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            if(error.response.status >= 400 && error.response.status < 500){
+              alert("Search input not accepted.");
+            } else if(error.response.status >= 500 && error.response.status < 600){
+              alert("Server cannot be accessed.");
+            }
+            alert(error.response.statusText);
+          } else if (error.request) {
+            // The request was made but no response was received.
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an error.
+            console.log('Error', error.message);
+          }
+          console.log(error.config);
+          alert("Image could not be found.");
+          
         }
     }
 

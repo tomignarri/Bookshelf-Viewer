@@ -27,11 +27,30 @@ class App extends React.Component {
               }  
           });
           this.parseAuthorIdResponse(response);
-        } catch(err) {
-          console.log(err);
+        } catch(error) {
           this.setState({ loadingBooks: false });
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            if(error.response.status >= 400 && error.response.status < 500){
+              this.setState({authorName: "Search input not accepted."});
+            } else if(error.response.status >= 500 && error.response.status < 600){
+              this.setState({authorName: "Server cannot be accessed."});
+            }
+            this.setState({authorName: error.response.statusText});
+          } else if (error.request) {
+            // The request was made but no response was received.
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an error.
+            console.log('Error', error.message);
+          }
+          console.log(error.config);
         }
-    }
+    };
 
     parseAuthorIdResponse(response){
         var xml = response.data;
@@ -45,7 +64,6 @@ class App extends React.Component {
             this.setState({authorName: "author not found", loadingBooks: false});
             return
         }
-        
         this.searchAuthorBooks(this.state.authorId); 
     }
 
@@ -59,10 +77,28 @@ class App extends React.Component {
               }  
           });
           this.parseAuthorBooks(response);
-        } catch(err) {
-          alert(err);
-          console.log(err);
+        } catch(error) {
           this.setState({ loadingBooks: false });
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+            if(error.response.status >= 400 && error.response.status < 500){
+              this.setState({authorName: "Search input not accepted."});
+            } else if(error.response.status >= 500 && error.response.status < 600){
+              this.setState({authorName: "Server cannot be accessed."});
+            }
+            this.setState({authorName: error.response.statusText});
+          } else if (error.request) {
+            // The request was made but no response was received.
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an error.
+            console.log('Error', error.message);
+          }
+          console.log(error.config);
         }   
     }
 

@@ -13,7 +13,7 @@ class UserSearch extends React.Component {
     render(){
         return (
             <div>
-                <nav className="navbar navbar-light bg-dark justify-content-between">
+                <nav className="navbar navbar-expand-sm navbar-light bg-dark justify-content-between">
                 <span className="navbar-text text-white">
                   Bookshelf Viewer
                 </span>

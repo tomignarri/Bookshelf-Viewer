@@ -14,7 +14,7 @@ class UserSearch extends React.Component {
         return (
             <div>
                 <nav className="navbar navbar-light bg-dark justify-content-between">
-                <span class="navbar-text text-white">
+                <span className="navbar-text text-white">
                   Bookshelf Viewer
                 </span>
                   <form onSubmit={this.onFormSubmit} className="form-inline">

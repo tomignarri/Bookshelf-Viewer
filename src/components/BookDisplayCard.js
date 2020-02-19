@@ -1,6 +1,5 @@
 import React from 'react';
 import LoadingIcon from './LoadingIcon';
-import goodreads from '../api/goodreads';
 var convert = require('xml-js');
 
 
@@ -15,32 +14,37 @@ class BookDisplayCard extends React.Component {
  
 
     fetchImage = async () => {
-        this.setState({ loadingCover: true })
-        var coverUrl = await 'http://covers.openlibrary.org/b/isbn/' + this.props.currentBook.isbn + '-L.jpg';
-        
-        console.log(coverUrl);
-
-        let getSize = new Promise((resolve, reject)=>{
-          
-          var img = new Image();
-          img.addEventListener("load", function(){
-              if(this.naturalWidth > 1){
-                console.log("true");
-                resolve(true);
-              } 
-              resolve(false);
-          });
-          img.src = coverUrl;
-          
-        });
-
-        let coverAvailable = await getSize;
-          
-        if(coverAvailable){
-          this.setState({ coverUrl: coverUrl, loadingCover: false });
-        } else if(!coverAvailable){
-          this.setState({ coverUrl: this.props.currentBook.cover, loadingCover: false });
+        this.setState({ loadingCover: true });
+        try{
+          var coverUrl = await 'http://covers.openlibrary.org/b/isbn/' + this.props.currentBook.isbn + '-L.jpg';
+          this.chooseImage(coverUrl);
+        } catch(err) {
+          alert("Image could not be found.");
+          this.setState({ loadingCover: false});
         }
+    }
+
+    chooseImage = async (coverUrl) => {
+      let getSize = new Promise((resolve, reject)=>{
+          
+        var img = new Image();
+        img.addEventListener("load", function(){
+            if(this.naturalWidth > 1){
+              resolve(true);
+            } 
+            resolve(false);
+        });
+        img.src = coverUrl;
+        
+      });
+
+      let coverAvailable = await getSize;
+        
+      if(coverAvailable){
+        this.setState({ coverUrl: coverUrl, loadingCover: false });
+      } else if(!coverAvailable){
+        this.setState({ coverUrl: this.props.currentBook.cover, loadingCover: false });
+      }
     }
     
     
@@ -55,25 +59,6 @@ class BookDisplayCard extends React.Component {
         this.fetchImage();
       }
     }
-
-
-    
-    // Read response image size.
-    getMeta(url){   
-          var img = new Image();
-          img.addEventListener("load", function(){
-              if(this.naturalWidth > 1){
-                console.log("true");
-                return true;
-
-              } 
-              return false;
-              
-          });
-          img.src = url;
-    }
-    
-
     
     render(){
         // if chosen book in not null, use 

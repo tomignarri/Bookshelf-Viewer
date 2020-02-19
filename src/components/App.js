@@ -12,50 +12,69 @@ class App extends React.Component {
     state = { 
         books: [],
         authorId: '',
-        loadingBooks: false 
+        loadingBooks: false,
+        authorName: '' 
     };
   
     // Use the user entered search term to fetch the author id from the Goodreads api
     // so that the id can be used in the searchAuthorBooks api call.
     onSearchSubmit = async (term) => {
         this.setState({ loadingBooks: true });
-        const response = await goodreads.get(`/api/author_url/${term}`, {
-            params: { 
-                key: '3sZmRXu71xYxamuJhPxCg'
-            }  
-        });
-       
+        try {
+          const response = await goodreads.get(`/api/author_url/${term}`, {
+              params: { 
+                  key: '3sZmRXu71xYxamuJhPxCg'
+              }  
+          });
+          this.parseAuthorIdResponse(response);
+        } catch(err) {
+          console.log(err);
+          this.setState({ loadingBooks: false });
+        }
+    }
 
+    parseAuthorIdResponse(response){
         var xml = response.data;
         var result = convert.xml2json(xml, {compact: true, spaces: 4});
         
         result = JSON.parse(result);
 
-        console.log(result.GoodreadsResponse.author._attributes.id);
-
-        this.setState({ 
-            authorId: result.GoodreadsResponse.author._attributes.id 
-        });
-
-        this.searchAuthorBooks(this.state.authorId);
+        if(typeof result.GoodreadsResponse.author !== "undefined"){
+            this.setState({authorId: result.GoodreadsResponse.author._attributes.id});
+        } else {
+            this.setState({authorName: "author not found", loadingBooks: false});
+            return
+        }
         
+        this.searchAuthorBooks(this.state.authorId); 
+    }
+
+    searchAuthorBooks = async (authorId) => {
+        try {
+        const response = await goodreadsAuthorList.get('/author/list.xml', {
+              params: { 
+                  id: authorId,
+                  key: '3sZmRXu71xYxamuJhPxCg',
+                  page: 1
+              }  
+          });
+          this.parseAuthorBooks(response);
+        } catch(err) {
+          alert(err);
+          console.log(err);
+          this.setState({ loadingBooks: false });
+        }   
     }
 
 
-    searchAuthorBooks = async (authorId) => {
-        const response = await goodreadsAuthorList.get('/author/list.xml', {
-            params: { 
-                id: authorId,
-                key: '3sZmRXu71xYxamuJhPxCg',
-                page: 1
-            }  
-        });
-
+    parseAuthorBooks(response){
         var xml = response.data;
         var result = convert.xml2json(xml, {compact: true, spaces: 4});
         
         result = JSON.parse(result);
         console.log(result);
+
+        this.setState({ authorName: result.GoodreadsResponse.author.name._text });
 
         var bookSearchArr = result.GoodreadsResponse.author.books.book
         console.log(bookSearchArr);
@@ -83,8 +102,8 @@ class App extends React.Component {
        
         this.setState({ books: bookSet, loadingBooks: false });
         console.log(this.state.books);
-        
     }
+
 
     // Remove html tags from descriptions.
     removeHtmlTags(description){
@@ -100,7 +119,10 @@ class App extends React.Component {
             <div>
                 <UserSearch onSubmit={this.onSearchSubmit} />
                 <div className="container-fluid">
-
+                  <div className='row justify-content-center mt-4 mb-3'>
+                    <h4 className='border-bottom'>{this.state.authorName}</h4>
+                  </div>
+                  
                   {/* send books */}
                   {this.state.loadingBooks ? <LoadingIcon /> : <Gallery books={this.state.books} />}
                   

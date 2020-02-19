@@ -14,11 +14,19 @@ body {
   background-color: white;
 }
 
+.spinner-grow {
+  width: 5rem;
+  height: 5rem;
+  margin-top: 15vh;
+  margin-bottom: 15vh;
+}
+
 
 
 
 /* 
 https://www.webdesignerdepot.com/2014/05/8-simple-css3-transitions-that-will-wow-your-users/
+Create a 3d effect when hover over book thumbnails.
 */
 .galleryImage:hover
 {

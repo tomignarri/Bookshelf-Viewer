@@ -1,4 +1,5 @@
 import React from 'react';
+import LoadingIcon from './LoadingIcon';
 import goodreads from '../api/goodreads';
 var convert = require('xml-js');
 
@@ -9,12 +10,12 @@ var convert = require('xml-js');
 class BookDisplayCard extends React.Component {
     state = {
         coverUrl: '',
-        // coverAvailable: false
-        // isbn: ''
+        loadingCover: false 
     };
  
 
     fetchImage = async () => {
+        this.setState({ loadingCover: true })
         var coverUrl = await 'http://covers.openlibrary.org/b/isbn/' + this.props.currentBook.isbn + '-L.jpg';
         
         console.log(coverUrl);
@@ -36,9 +37,9 @@ class BookDisplayCard extends React.Component {
         let coverAvailable = await getSize;
           
         if(coverAvailable){
-          this.setState({ coverUrl: coverUrl });
+          this.setState({ coverUrl: coverUrl, loadingCover: false });
         } else if(!coverAvailable){
-          this.setState({ coverUrl: this.props.currentBook.cover });
+          this.setState({ coverUrl: this.props.currentBook.cover, loadingCover: false });
         }
     }
     
@@ -81,7 +82,8 @@ class BookDisplayCard extends React.Component {
             return (
               <div className='row'>
                 <div className='col-12 col-sm-12 col-m-5 col-lg-5 text-white text-center'>
-                    <img alt="cover" src={this.state.coverUrl}></img>
+                {this.state.loadingCover ? <LoadingIcon /> : <img alt="cover" src={this.state.coverUrl}></img>}
+                    
                     
                 </div>  
                 <div className='col-12 col-sm-12 col-m-7 col-lg-7 text-white'>

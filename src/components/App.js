@@ -3,6 +3,7 @@ import goodreads from '../api/goodreads';
 import goodreadsAuthorList from '../api/goodreadsAuthorList';
 import UserSearch from './UserSearch';
 import Gallery from './Gallery';
+import LoadingIcon from './LoadingIcon';
 var convert = require('xml-js');
 var he = require('he');
 
@@ -10,16 +11,20 @@ var he = require('he');
 class App extends React.Component {
     state = { 
         books: [],
-        authorId: '' 
+        authorId: '',
+        loadingBooks: false 
     };
   
-
+    // Use the user entered search term to fetch the author id from the Goodreads api
+    // so that the id can be used in the searchAuthorBooks api call.
     onSearchSubmit = async (term) => {
+        this.setState({ loadingBooks: true });
         const response = await goodreads.get(`/api/author_url/${term}`, {
             params: { 
                 key: '3sZmRXu71xYxamuJhPxCg'
             }  
         });
+       
 
         var xml = response.data;
         var result = convert.xml2json(xml, {compact: true, spaces: 4});
@@ -27,7 +32,6 @@ class App extends React.Component {
         result = JSON.parse(result);
 
         console.log(result.GoodreadsResponse.author._attributes.id);
-
 
         this.setState({ 
             authorId: result.GoodreadsResponse.author._attributes.id 
@@ -60,7 +64,7 @@ class App extends React.Component {
 
         for(var i = 0;i < bookSearchArr.length; i++){
             
-            // This only adds the book to the set if it has a description.
+            // Only adds the book to the set if it has a description.
             if(
                 typeof bookSearchArr[i].description._text === 'string' 
                 || bookSearchArr[i].description._text instanceof String
@@ -77,7 +81,7 @@ class App extends React.Component {
             }
         }
        
-        this.setState({ books: bookSet });
+        this.setState({ books: bookSet, loadingBooks: false });
         console.log(this.state.books);
         
     }
@@ -85,6 +89,8 @@ class App extends React.Component {
     // Remove html tags from descriptions.
     removeHtmlTags(description){
         var strippedHtml = description.replace(/<[^>]+>/g, '');
+
+        // This he.decode function and translate any named and numerical character references.
         var decodedStrippedHtml = he.decode(strippedHtml);
         return decodedStrippedHtml;
     }
@@ -96,13 +102,13 @@ class App extends React.Component {
                 <div className="container-fluid">
 
                   {/* send books */}
-                  <Gallery books={this.state.books} />
+                  {this.state.loadingBooks ? <LoadingIcon /> : <Gallery books={this.state.books} />}
+                  
                 </div>
             </div>    
         );
     };
 }
-
 
 
 export default App;

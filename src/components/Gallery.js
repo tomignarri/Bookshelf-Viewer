@@ -1,73 +1,72 @@
-import React from 'react';
-import BookCard from './BookCard';
-import BookDisplay from './BookDisplay';
-import '../styles/style.css';
-
+import React from "react";
+import BookCard from "./BookCard";
+import BookDisplay from "./BookDisplay";
+import "../styles/style.css";
 
 class Gallery extends React.Component {
   state = {
     bookIndex: 0,
-    createDisplay: false 
+    createDisplay: false
   };
-
 
   //gallery sends all books to display
   //book card sends book index
   bookSelected = bookIndex => {
-    this.setState({bookIndex: bookIndex, createDisplay: true});        
-  }
+    this.setState({ bookIndex: bookIndex, createDisplay: true });
+  };
 
-  renderBookDisplay(){
-    if(this.state.createDisplay){
+  renderBookDisplay() {
+    if (this.state.createDisplay) {
       return (
-        <div className='d-flex flex-column fixed-top bg'>
-          <div className='d-flex flex-row text-white align-items-center p-2 position-fixed'>
-              <button 
-              type='button' 
-              className='btn btn-outline-light'
-              onClick={this.closeBookDisplay}>
+        <div className="d-flex flex-column fixed-top bg">
+          <div className="d-flex flex-row text-white align-items-center p-2 position-fixed">
+            <button
+              type="button"
+              className="btn btn-outline-light"
+              onClick={this.closeBookDisplay}
+            >
               close
-              </button>
+            </button>
           </div>
-          <div className='d-flex flex-row text-center'>
+          <div className="d-flex flex-row text-center">
             {this.props.books[0].author}
           </div>
-          
-          <BookDisplay 
-            selectedBookIndex={this.state.bookIndex} 
-            allBooks={this.props.books}></BookDisplay>
-        </div>    
-      )
+
+          <BookDisplay
+            selectedBookIndex={this.state.bookIndex}
+            allBooks={this.props.books}
+          ></BookDisplay>
+        </div>
+      );
     }
-    return <div></div>
-  };
+    return <div></div>;
+  }
 
   closeBookDisplay = event => {
     event.preventDefault();
-    this.setState({ createDisplay: false }); 
+    this.setState({ createDisplay: false });
   };
 
-  
-  render(){
+  render() {
     const books = this.props.books.map((book, index) => {
-              return (
-                <BookCard key={book.id} book={book} bookSelected={this.bookSelected} index={index} />
-              );
-          });
-      
-          return(
-            <div>
-                {this.renderBookDisplay()}
-      
-                <div className="row">{books}</div>   
-            </div>
-             
-          ); 
-  };
+      return (
+        <BookCard
+          key={book.id}
+          book={book}
+          bookSelected={this.bookSelected}
+          index={index}
+        />
+      );
+    });
+
+    return (
+      <div>
+        {this.renderBookDisplay()}
+
+        <div className="row">{books}</div>
+      </div>
+    );
+  }
 }
-
-
-
-
 
 export default Gallery;

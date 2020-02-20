@@ -26,7 +26,7 @@ class Gallery extends React.Component {
           <div className="d-flex flex-row text-white align-items-center p-3 position-fixed">
             <button
               type="button"
-              className="btn btn-dark text-white"
+              className="btn btn-light text-dark"
               onClick={this.closeBookDisplay}
               aria-label="Close"
             >

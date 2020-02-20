@@ -87,15 +87,15 @@ class BookDisplay extends React.Component {
             </button>
           </div>
           <div className="container-fluid">
-          {/* send data to bookdisplaycard */}
-          <BookDisplayCard
-            currentIndex={this.state.selectedBookIndex}
-            currentBook={this.props.allBooks[this.state.selectedBookIndex]}
-          />
-          {/* render next book */}
-        </div>
+            {/* send data to bookdisplaycard */}
+            <BookDisplayCard
+              currentIndex={this.state.selectedBookIndex}
+              currentBook={this.props.allBooks[this.state.selectedBookIndex]}
+            />
+            {/* render next book */}
+          </div>
           <div className="d-flex flex-column justify-content-center buttonColumn">
-          <button
+            <button
               type="button"
               className="btn btn-light btn-lg d-none d-md-block d-lg-block d-xl-block bookNext"
               onClick={() =>

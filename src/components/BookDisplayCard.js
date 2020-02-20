@@ -97,7 +97,10 @@ class BookDisplayCard extends React.Component {
         </div>
         <div className="col-12 col-sm-12 col-m-7 col-lg-7 text-white">
           <h3>{this.props.currentBook.title}</h3>
-          <h5>{this.props.currentBook.pubYear}</h5>
+          <h5>Year of publication: {this.props.currentBook.pubYear}</h5>
+          <h5>
+            Average Goodreads rating: {this.props.currentBook.averageRating}
+          </h5>
           <div>{this.props.currentBook.description}</div>
         </div>
       </div>

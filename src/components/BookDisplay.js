@@ -21,10 +21,13 @@ class BookDisplay extends React.Component {
       this.setState({
         selectedBookIndex: bookAmount - 1
       });
-    } else if (newIndex === bookAmount) {
+      return;
+    }
+    if (newIndex === bookAmount) {
       this.setState({
         selectedBookIndex: 0
       });
+      return;
     }
     this.setState({
       selectedBookIndex: newIndex
@@ -71,33 +74,37 @@ class BookDisplay extends React.Component {
         onTouchMove={this.touchMove}
         onTouchEnd={this.touchEnd}
       >
-        <div className="d-flex flex-row align-items-center justify-content-center">
-          <button
-            type="button"
-            className="btn btn-outline-light"
-            onClick={() =>
-              this.scrollDisplayBook(this.state.selectedBookIndex - 1)
-            }
-          >
-            <i className="fas fa-angle-double-left" />
-          </button>
-          <button
-            type="button"
-            className="btn btn-outline-light"
-            onClick={() =>
-              this.scrollDisplayBook(this.state.selectedBookIndex + 1)
-            }
-          >
-            <i className="fas fa-angle-double-right" />
-          </button>
-        </div>
-        <div className="container-fluid p-5">
+        <div className="d-flex flex-row justify-content-between px-3">
+          <div className="d-flex flex-column justify-content-center buttonColumn">
+            <button
+              type="button"
+              className="btn btn-light btn-lg d-none d-md-block d-lg-block d-xl-block bookNext"
+              onClick={() =>
+                this.scrollDisplayBook(this.state.selectedBookIndex - 1)
+              }
+            >
+              <i className="fas fa-long-arrow-alt-left" />
+            </button>
+          </div>
+          <div className="container-fluid">
           {/* send data to bookdisplaycard */}
           <BookDisplayCard
             currentIndex={this.state.selectedBookIndex}
             currentBook={this.props.allBooks[this.state.selectedBookIndex]}
           />
           {/* render next book */}
+        </div>
+          <div className="d-flex flex-column justify-content-center buttonColumn">
+          <button
+              type="button"
+              className="btn btn-light btn-lg d-none d-md-block d-lg-block d-xl-block bookNext"
+              onClick={() =>
+                this.scrollDisplayBook(this.state.selectedBookIndex + 1)
+              }
+            >
+              <i className="fas fa-long-arrow-alt-right" />
+            </button>
+          </div>
         </div>
       </div>
     );

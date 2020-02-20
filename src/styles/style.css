@@ -14,16 +14,27 @@ body {
   background-color: white;
 }
 
+.bookNext {
+  height: 80px;
+}
+
+.displayFull {
+  min-height: 100vh;
+}
+
+.buttonColumn {
+  min-height: 100vh;
+  max-height: 100vh;
+}
+
+
+
 .spinner-grow {
   width: 5rem;
   height: 5rem;
   margin-top: 15vh;
   margin-bottom: 15vh;
 }
-
-
-
-
 
 /* include the shadow for beginning state */
 .box {

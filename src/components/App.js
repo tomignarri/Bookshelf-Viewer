@@ -20,7 +20,7 @@ class App extends React.Component {
 
       // Show loading icon when true.
       loadingBooks: false,
-      authorName: ""
+      authorName: "Enter an author name."
     };
   }
 

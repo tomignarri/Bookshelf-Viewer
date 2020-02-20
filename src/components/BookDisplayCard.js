@@ -88,14 +88,14 @@ class BookDisplayCard extends React.Component {
   render() {
     return (
       <div className="row p-5 displayFull">
-        <div className="col-12 col-sm-12 col-m-5 col-lg-5 text-white text-center mb-3">
+        <div className="col-12 col-sm-12 col-m-6 col-lg-6 text-white text-center mb-3">
           {this.state.loadingCover ? (
             <LoadingIcon />
           ) : (
             <img alt="cover" src={this.state.coverUrl} />
           )}
         </div>
-        <div className="col-12 col-sm-12 col-m-7 col-lg-7 text-white">
+        <div className="col-12 col-sm-12 col-m-6 col-lg-6 text-white">
           <h3>{this.props.currentBook.title}</h3>
           <h5>Year of publication: {this.props.currentBook.pubYear}</h5>
           <h5>

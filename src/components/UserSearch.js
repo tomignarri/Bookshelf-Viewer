@@ -7,9 +7,9 @@ class UserSearch extends React.Component {
     this.state = { term: "" };
   }
 
+  // Receive input from form input and send to App component.
   onFormSubmit = event => {
     event.preventDefault();
-
     this.props.onSubmit(this.state.term);
   };
 

@@ -13,6 +13,8 @@ class BookDisplay extends React.Component {
     };
   }
 
+  // Iterate displayed book and handle being at
+  // the end or the beginning of the array.
   scrollDisplayBook(newIndex) {
     const bookAmount = this.props.allBooks.length;
     if (newIndex < 0) {
@@ -29,10 +31,14 @@ class BookDisplay extends React.Component {
     });
   }
 
+  // Touchscreen touches start.
   touchStart = event => {
     const touchObj = event.touches[0];
     this.setState({
       touchStartX: touchObj.clientX,
+
+      // Set current on touchStart to prevent touch start where
+      // touchMove is not triggered, causing a unintended scroll.
       touchCurrentX: touchObj.clientX
     });
   };
@@ -44,6 +50,8 @@ class BookDisplay extends React.Component {
     });
   };
 
+  // Find the difference between touch start and end along
+  // the x-axis to determine the direction of the swipe.
   touchEnd = () => {
     if (
       Math.abs(this.state.touchStartX - this.state.touchCurrentX) >

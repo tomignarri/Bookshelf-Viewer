@@ -10,6 +10,7 @@ class BookDisplayCard extends React.Component {
     };
   }
 
+  // Fetch full sized image from Open Library.
   fetchImage = async () => {
     this.setState({ loadingCover: true });
     try {
@@ -44,6 +45,8 @@ class BookDisplayCard extends React.Component {
     }
   };
 
+  // Get the size of the image and determine if it is above
+  // 1x1 pixel. This is to handle blank jpg endpoints from Open Library.
   chooseImage = async coverUrl => {
     const getSize = new Promise(resolve => {
       const img = new Image();
@@ -56,8 +59,9 @@ class BookDisplayCard extends React.Component {
       img.src = coverUrl;
     });
 
+    // Wait for resolve that says the fetched jpg is blank,
+    // to prevent thumbnail cover for being set prematurely.
     const coverAvailable = await getSize;
-
     if (coverAvailable) {
       this.setState({ coverUrl, loadingCover: false });
     } else if (!coverAvailable) {
@@ -72,6 +76,8 @@ class BookDisplayCard extends React.Component {
     this.fetchImage();
   }
 
+  // Track for a different book to know when a user has scrolled
+  // to the next or previous book.
   componentDidUpdate(prevProps) {
     if (this.props.currentBook !== prevProps.currentBook) {
       // this.setState({ coverUrl: this.props.currentBook.cover });
@@ -80,9 +86,6 @@ class BookDisplayCard extends React.Component {
   }
 
   render() {
-    // if chosen book in not null, use
-    // id from bookcard to decide which book to display
-
     return (
       <div className="row">
         <div className="col-12 col-sm-12 col-m-5 col-lg-5 text-white text-center">

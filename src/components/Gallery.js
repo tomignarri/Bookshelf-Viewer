@@ -13,8 +13,8 @@ class Gallery extends React.Component {
     };
   }
 
-  // gallery sends all books to display
-  // book card sends book index
+  // Gallery receives book index from book card sends
+  // selected index to BookDisplay.
   bookSelected = bookIndex => {
     this.setState({ bookIndex, createDisplay: true });
   };

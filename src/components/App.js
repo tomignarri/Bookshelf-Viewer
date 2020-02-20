@@ -17,6 +17,8 @@ class App extends React.Component {
     this.state = {
       books: [],
       authorId: "",
+
+      // Show loading icon when true.
       loadingBooks: false,
       authorName: ""
     };
@@ -61,6 +63,7 @@ class App extends React.Component {
     }
   };
 
+  // Search for list of books by author using author id found in parseAuthorIdResponse.
   searchAuthorBooks = async authorId => {
     try {
       const response = await goodreadsAuthorList.get("/author/list.xml", {
@@ -108,18 +111,17 @@ class App extends React.Component {
     return decodedStrippedHtml;
   };
 
+  // Convert the xml response into JSON and parse all data into an
+  // array of objects in the BookSet array.
   parseAuthorBooks(response) {
     const xml = response.data;
     let result = convert.xml2json(xml, { compact: true, spaces: 4 });
 
     result = JSON.parse(result);
-    console.log(result);
 
-    // eslint-disable-next-line no-underscore-dangle
     this.setState({ authorName: result.GoodreadsResponse.author.name._text });
 
     const bookSearchArr = result.GoodreadsResponse.author.books.book;
-    console.log(bookSearchArr);
 
     const bookSet = [];
 
@@ -144,22 +146,25 @@ class App extends React.Component {
     }
 
     this.setState({ books: bookSet, loadingBooks: false });
-    console.log(this.state.books);
   }
 
+  // Parse Author id from onSearchSubmit results.
   parseAuthorIdResponse(response) {
     const xml = response.data;
     let result = convert.xml2json(xml, { compact: true, spaces: 4 });
 
     result = JSON.parse(result);
 
+    // Handle when a user enters an unusable search term.
     if (typeof result.GoodreadsResponse.author !== "undefined") {
       this.setState({
-        // eslint-disable-next-line no-underscore-dangle
         authorId: result.GoodreadsResponse.author._attributes.id
       });
     } else {
-      this.setState({ authorName: "author not found", loadingBooks: false });
+      this.setState({
+        authorName: "Author not found. Try different search terms",
+        loadingBooks: false
+      });
       return;
     }
     this.searchAuthorBooks(this.state.authorId);

@@ -4,15 +4,19 @@ import BookDisplay from "./BookDisplay";
 import "../styles/style.css";
 
 class Gallery extends React.Component {
-  state = {
-    bookIndex: 0,
-    createDisplay: false
-  };
+  constructor(props) {
+    super(props);
 
-  //gallery sends all books to display
-  //book card sends book index
+    this.state = {
+      bookIndex: 0,
+      createDisplay: false
+    };
+  }
+
+  // gallery sends all books to display
+  // book card sends book index
   bookSelected = bookIndex => {
-    this.setState({ bookIndex: bookIndex, createDisplay: true });
+    this.setState({ bookIndex, createDisplay: true });
   };
 
   renderBookDisplay() {
@@ -35,11 +39,11 @@ class Gallery extends React.Component {
           <BookDisplay
             selectedBookIndex={this.state.bookIndex}
             allBooks={this.props.books}
-          ></BookDisplay>
+          />
         </div>
       );
     }
-    return <div></div>;
+    return <div />;
   }
 
   closeBookDisplay = event => {

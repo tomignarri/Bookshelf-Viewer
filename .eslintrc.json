@@ -12,6 +12,9 @@
     ],
     "rules": {
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "react/prop-types": [0],
+      "react/destructuring-assignment": [0, "never"],
+      "react/sort-comp": [0],
       "prettier/prettier": [
         "error", {
           "semi": true

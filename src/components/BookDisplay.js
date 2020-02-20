@@ -2,19 +2,27 @@ import React from "react";
 import BookDisplayCard from "./BookDisplayCard";
 
 class BookDisplay extends React.Component {
-  state = {
-    selectedBookIndex: this.props.selectedBookIndex,
-    touchStartX: 0,
-    touchCurrentX: 0,
-    swipeThreshold: 75
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedBookIndex: this.props.selectedBookIndex,
+      touchStartX: 0,
+      touchCurrentX: 0,
+      swipeThreshold: 75
+    };
+  }
 
   scrollDisplayBook(newIndex) {
     const bookAmount = this.props.allBooks.length;
     if (newIndex < 0) {
-      newIndex = bookAmount - 1;
+      this.setState({
+        selectedBookIndex: bookAmount - 1
+      });
     } else if (newIndex === bookAmount) {
-      newIndex = 0;
+      this.setState({
+        selectedBookIndex: 0
+      });
     }
     this.setState({
       selectedBookIndex: newIndex
@@ -27,7 +35,6 @@ class BookDisplay extends React.Component {
       touchStartX: touchObj.clientX,
       touchCurrentX: touchObj.clientX
     });
-    //console.log('start   ' + this.state.touchStartX);
   };
 
   touchMove = event => {
@@ -38,16 +45,11 @@ class BookDisplay extends React.Component {
   };
 
   touchEnd = () => {
-    //var s = { touchStarted: false };
-
-    console.log("start   " + this.state.touchStartX);
-    console.log("end   " + this.state.touchCurrentX);
-
     if (
       Math.abs(this.state.touchStartX - this.state.touchCurrentX) >
       this.state.swipeThreshold
     ) {
-      var swipeDirection =
+      const swipeDirection =
         this.state.touchStartX > this.state.touchCurrentX ? 1 : -1;
       this.scrollDisplayBook(this.state.selectedBookIndex + swipeDirection);
     }
@@ -69,7 +71,7 @@ class BookDisplay extends React.Component {
               this.scrollDisplayBook(this.state.selectedBookIndex - 1)
             }
           >
-            <i className="fas fa-angle-double-left"></i>
+            <i className="fas fa-angle-double-left" />
           </button>
           <button
             type="button"
@@ -78,11 +80,11 @@ class BookDisplay extends React.Component {
               this.scrollDisplayBook(this.state.selectedBookIndex + 1)
             }
           >
-            <i className="fas fa-angle-double-right"></i>
+            <i className="fas fa-angle-double-right" />
           </button>
         </div>
         <div className="container-fluid p-5">
-          {/* send data to bookdisplaycard*/}
+          {/* send data to bookdisplaycard */}
           <BookDisplayCard
             currentIndex={this.state.selectedBookIndex}
             currentBook={this.props.allBooks[this.state.selectedBookIndex]}

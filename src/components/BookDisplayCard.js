@@ -2,18 +2,18 @@ import React from "react";
 import LoadingIcon from "./LoadingIcon";
 
 class BookDisplayCard extends React.Component {
-  state = {
-    coverUrl: "",
-    loadingCover: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      coverUrl: "",
+      loadingCover: false
+    };
+  }
 
   fetchImage = async () => {
     this.setState({ loadingCover: true });
     try {
-      var coverUrl =
-        (await "http://covers.openlibrary.org/b/isbn/") +
-        this.props.currentBook.isbn +
-        "-L.jpg";
+      const coverUrl = await `http://covers.openlibrary.org/b/isbn/${this.props.currentBook.isbn}-L.jpg`;
       this.chooseImage(coverUrl);
     } catch (error) {
       this.setState({ loadingCover: false });
@@ -45,8 +45,8 @@ class BookDisplayCard extends React.Component {
   };
 
   chooseImage = async coverUrl => {
-    let getSize = new Promise((resolve, reject) => {
-      var img = new Image();
+    const getSize = new Promise(resolve => {
+      const img = new Image();
       img.addEventListener("load", function() {
         if (this.naturalWidth > 1) {
           resolve(true);
@@ -56,10 +56,10 @@ class BookDisplayCard extends React.Component {
       img.src = coverUrl;
     });
 
-    let coverAvailable = await getSize;
+    const coverAvailable = await getSize;
 
     if (coverAvailable) {
-      this.setState({ coverUrl: coverUrl, loadingCover: false });
+      this.setState({ coverUrl, loadingCover: false });
     } else if (!coverAvailable) {
       this.setState({
         coverUrl: this.props.currentBook.cover,
@@ -81,7 +81,7 @@ class BookDisplayCard extends React.Component {
 
   render() {
     // if chosen book in not null, use
-    //id from bookcard to decide which book to display
+    // id from bookcard to decide which book to display
 
     return (
       <div className="row">
@@ -89,7 +89,7 @@ class BookDisplayCard extends React.Component {
           {this.state.loadingCover ? (
             <LoadingIcon />
           ) : (
-            <img alt="cover" src={this.state.coverUrl}></img>
+            <img alt="cover" src={this.state.coverUrl} />
           )}
         </div>
         <div className="col-12 col-sm-12 col-m-7 col-lg-7 text-white">

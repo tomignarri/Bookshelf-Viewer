@@ -1,19 +1,26 @@
+/* eslint-disable no-console */
+/* eslint-disable no-underscore-dangle */
 import React from "react";
 import goodreads from "../api/goodreads";
 import goodreadsAuthorList from "../api/goodreadsAuthorList";
 import UserSearch from "./UserSearch";
 import Gallery from "./Gallery";
 import LoadingIcon from "./LoadingIcon";
-var convert = require("xml-js");
-var he = require("he");
+
+const convert = require("xml-js");
+const he = require("he");
 
 class App extends React.Component {
-  state = {
-    books: [],
-    authorId: "",
-    loadingBooks: false,
-    authorName: ""
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      books: [],
+      authorId: "",
+      loadingBooks: false,
+      authorName: ""
+    };
+  }
 
   // Use the user entered search term to fetch the author id from the Goodreads api
   // so that the id can be used in the searchAuthorBooks api call.
@@ -54,23 +61,6 @@ class App extends React.Component {
     }
   };
 
-  parseAuthorIdResponse(response) {
-    var xml = response.data;
-    var result = convert.xml2json(xml, { compact: true, spaces: 4 });
-
-    result = JSON.parse(result);
-
-    if (typeof result.GoodreadsResponse.author !== "undefined") {
-      this.setState({
-        authorId: result.GoodreadsResponse.author._attributes.id
-      });
-    } else {
-      this.setState({ authorName: "author not found", loadingBooks: false });
-      return;
-    }
-    this.searchAuthorBooks(this.state.authorId);
-  }
-
   searchAuthorBooks = async authorId => {
     try {
       const response = await goodreadsAuthorList.get("/author/list.xml", {
@@ -109,27 +99,37 @@ class App extends React.Component {
     }
   };
 
+  // Remove html tags from descriptions.
+  removeHtmlTags = description => {
+    const strippedHtml = description.replace(/<[^>]+>/g, "");
+
+    // This he.decode function and translate any named and numerical character references.
+    const decodedStrippedHtml = he.decode(strippedHtml);
+    return decodedStrippedHtml;
+  };
+
   parseAuthorBooks(response) {
-    var xml = response.data;
-    var result = convert.xml2json(xml, { compact: true, spaces: 4 });
+    const xml = response.data;
+    let result = convert.xml2json(xml, { compact: true, spaces: 4 });
 
     result = JSON.parse(result);
     console.log(result);
 
+    // eslint-disable-next-line no-underscore-dangle
     this.setState({ authorName: result.GoodreadsResponse.author.name._text });
 
-    var bookSearchArr = result.GoodreadsResponse.author.books.book;
+    const bookSearchArr = result.GoodreadsResponse.author.books.book;
     console.log(bookSearchArr);
 
-    var bookSet = [];
+    const bookSet = [];
 
-    for (var i = 0; i < bookSearchArr.length; i++) {
+    for (let i = 0; i < bookSearchArr.length; i += 1) {
       // Only adds the book to the set if it has a description.
       if (
         typeof bookSearchArr[i].description._text === "string" ||
         bookSearchArr[i].description._text instanceof String
       ) {
-        var bookData = {};
+        const bookData = {};
         bookData.id = bookSearchArr[i].id._text;
         bookData.title = bookSearchArr[i].title._text;
         bookData.cover = bookSearchArr[i].image_url._text;
@@ -147,13 +147,22 @@ class App extends React.Component {
     console.log(this.state.books);
   }
 
-  // Remove html tags from descriptions.
-  removeHtmlTags(description) {
-    var strippedHtml = description.replace(/<[^>]+>/g, "");
+  parseAuthorIdResponse(response) {
+    const xml = response.data;
+    let result = convert.xml2json(xml, { compact: true, spaces: 4 });
 
-    // This he.decode function and translate any named and numerical character references.
-    var decodedStrippedHtml = he.decode(strippedHtml);
-    return decodedStrippedHtml;
+    result = JSON.parse(result);
+
+    if (typeof result.GoodreadsResponse.author !== "undefined") {
+      this.setState({
+        // eslint-disable-next-line no-underscore-dangle
+        authorId: result.GoodreadsResponse.author._attributes.id
+      });
+    } else {
+      this.setState({ authorName: "author not found", loadingBooks: false });
+      return;
+    }
+    this.searchAuthorBooks(this.state.authorId);
   }
 
   render() {

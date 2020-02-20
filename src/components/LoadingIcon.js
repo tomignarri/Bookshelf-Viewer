@@ -1,6 +1,6 @@
 import React from "react";
 
-const LoadingIcon = props => {
+const LoadingIcon = () => {
   return (
     <div className="d-flex justify-content-center align-items-center">
       <div className="spinner-grow" role="status">

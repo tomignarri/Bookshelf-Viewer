@@ -1,7 +1,11 @@
 import React from "react";
 
 class UserSearch extends React.Component {
-  state = { term: "" };
+  constructor(props) {
+    super(props);
+
+    this.state = { term: "" };
+  }
 
   onFormSubmit = event => {
     event.preventDefault();
@@ -23,14 +27,14 @@ class UserSearch extends React.Component {
                 className="form-control form-control-sm"
                 placeholder="Search Author"
                 required
-              ></input>
+              />
             </div>
             <div>
               <input
                 type="submit"
                 value="Submit"
                 className="btn btn-light btn-sm ml-2"
-              ></input>
+              />
             </div>
           </form>
         </nav>

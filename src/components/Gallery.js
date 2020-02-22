@@ -22,7 +22,7 @@ class Gallery extends React.Component {
   renderBookDisplay() {
     if (this.state.createDisplay) {
       return (
-        <div className="d-flex flex-column fixed-top bg">
+        <div className="d-flex fixed-top bg">
           <div className="d-flex flex-row text-white align-items-center p-3 position-fixed">
             <button
               type="button"

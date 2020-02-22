@@ -78,7 +78,7 @@ class BookDisplay extends React.Component {
           <div className="d-flex flex-column justify-content-center buttonColumn">
             <button
               type="button"
-              className="btn btn-light btn-lg d-none d-sm-block d-md-block d-lg-block d-xl-block bookNext"
+              className="btn btn-light btn-lg d-none d-sm-block d-md-block d-lg-block d-xl-block mr-2 bookNext"
               onClick={() =>
                 this.scrollDisplayBook(this.state.selectedBookIndex - 1)
               }
@@ -97,7 +97,7 @@ class BookDisplay extends React.Component {
           <div className="d-flex flex-column justify-content-center buttonColumn">
             <button
               type="button"
-              className="btn btn-light btn-lg d-none d-sm-block d-md-block d-lg-block d-xl-block bookNext"
+              className="btn btn-light btn-lg d-none d-sm-block d-md-block d-lg-block d-xl-block ml-2 bookNext"
               onClick={() =>
                 this.scrollDisplayBook(this.state.selectedBookIndex + 1)
               }

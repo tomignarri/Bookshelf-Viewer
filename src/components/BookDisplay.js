@@ -74,8 +74,17 @@ class BookDisplay extends React.Component {
         onTouchMove={this.touchMove}
         onTouchEnd={this.touchEnd}
       >
-        <div className="d-flex flex-row justify-content-between px-3">
-          <div className="d-flex flex-column justify-content-center buttonColumn">
+        <div className="d-flex justify-content-between">
+        <div className="d-flex flex-row-reverse position-fixed p-3 buttonColumn">
+            <button
+              type="button"
+              className="btn btn-light btn-lg d-none d-sm-block d-md-block d-lg-block d-xl-block bookNext"
+              onClick={() =>
+                this.scrollDisplayBook(this.state.selectedBookIndex + 1)
+              }
+            >
+              <i className="fas fa-long-arrow-alt-right" />
+            </button>
             <button
               type="button"
               className="btn btn-light btn-lg d-none d-sm-block d-md-block d-lg-block d-xl-block mr-2 bookNext"
@@ -86,7 +95,19 @@ class BookDisplay extends React.Component {
               <i className="fas fa-long-arrow-alt-left" />
             </button>
           </div>
-          <div className="container-fluid">
+
+          {/* <div className="d-flex flex-column justify-content-center buttonColumn">
+            <button
+              type="button"
+              className="btn btn-light btn-lg d-none d-sm-block d-md-block d-lg-block d-xl-block mr-2 bookNext"
+              onClick={() =>
+                this.scrollDisplayBook(this.state.selectedBookIndex - 1)
+              }
+            >
+              <i className="fas fa-long-arrow-alt-left" />
+            </button>
+          </div> */}
+          <div className="d-flex">
             {/* send data to bookdisplaycard */}
             <BookDisplayCard
               currentIndex={this.state.selectedBookIndex}
@@ -94,7 +115,7 @@ class BookDisplay extends React.Component {
             />
             {/* render next book */}
           </div>
-          <div className="d-flex flex-column justify-content-center buttonColumn">
+          {/* <div className="d-flex flex-column justify-content-center buttonColumn">
             <button
               type="button"
               className="btn btn-light btn-lg d-none d-sm-block d-md-block d-lg-block d-xl-block ml-2 bookNext"
@@ -104,7 +125,7 @@ class BookDisplay extends React.Component {
             >
               <i className="fas fa-long-arrow-alt-right" />
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     );

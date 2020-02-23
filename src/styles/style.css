@@ -15,16 +15,28 @@ body {
 }
 
 .bookNext {
-  height: 80px;
+  height: 45px;
+  width: 140px;
 }
 
 .displayFull {
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
+  padding: 100px 20px 20px 20px;
 }
 
 .buttonColumn {
-  min-height: 100vh;
-  max-height: 100vh;
+ width: 80vw;
+ left: 20vw;
+}
+
+.bookDisplayContent {
+  width: 50%;
+}
+
+@media only screen and (max-width: 600px) {
+  .bookDisplayContent {
+    width: 100%;
+  }
 }
 
 /* .fullCover {

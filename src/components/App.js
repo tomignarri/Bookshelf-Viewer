@@ -17,16 +17,12 @@ class App extends React.Component {
     this.state = {
       books: [],
       authorId: "",
-
-      // Show loading icon when true.
       loadingBooks: false,
       authorName: "Enter an author name."
     };
   }
 
-  // Use the user entered search term to fetch the author id from the Goodreads api
-  // so that the id can be used in the searchAuthorBooks api call.
-  onSearchSubmit = async term => {
+  searchAuthorId = async term => {
     this.setState({ loadingBooks: true });
     try {
       const response = await goodreads.get(`/api/author_url/${term}`, {
@@ -38,8 +34,6 @@ class App extends React.Component {
     } catch (error) {
       this.setState({ loadingBooks: false });
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
@@ -53,17 +47,14 @@ class App extends React.Component {
         }
         this.setState({ authorName: error.response.statusText });
       } else if (error.request) {
-        // The request was made but no response was received.
         console.log(error.request);
       } else {
-        // Something happened in setting up the request that triggered an error.
         console.log("Error", error.message);
       }
       console.log(error.config);
     }
   };
 
-  // Search for list of books by author using author id found in parseAuthorIdResponse.
   searchAuthorBooks = async authorId => {
     try {
       const response = await goodreadsAuthorList.get("/author/list.xml", {
@@ -77,8 +68,6 @@ class App extends React.Component {
     } catch (error) {
       this.setState({ loadingBooks: false });
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
@@ -92,41 +81,32 @@ class App extends React.Component {
         }
         this.setState({ authorName: error.response.statusText });
       } else if (error.request) {
-        // The request was made but no response was received.
         console.log(error.request);
       } else {
-        // Something happened in setting up the request that triggered an error.
         console.log("Error", error.message);
       }
       console.log(error.config);
     }
   };
 
-  // Remove html tags from descriptions.
   removeHtmlTags = description => {
     const strippedHtml = description.replace(/<[^>]+>/g, "");
 
-    // This he.decode function and translate any named and numerical character references.
+    // This he.decode function translates any named and numerical character references.
     const decodedStrippedHtml = he.decode(strippedHtml);
     return decodedStrippedHtml;
   };
 
-  // Convert the xml response into JSON and parse all data into an
-  // array of objects in the BookSet array.
   parseAuthorBooks(response) {
     const xml = response.data;
     let result = convert.xml2json(xml, { compact: true, spaces: 4 });
 
     result = JSON.parse(result);
-
     this.setState({ authorName: result.GoodreadsResponse.author.name._text });
-
     const bookSearchArr = result.GoodreadsResponse.author.books.book;
-
     const bookSet = [];
 
     for (let i = 0; i < bookSearchArr.length; i += 1) {
-      // Only adds the book to the set if it has a description.
       if (
         typeof bookSearchArr[i].description._text === "string" ||
         bookSearchArr[i].description._text instanceof String
@@ -148,7 +128,6 @@ class App extends React.Component {
     this.setState({ books: bookSet, loadingBooks: false });
   }
 
-  // Parse Author id from onSearchSubmit results.
   parseAuthorIdResponse(response) {
     const xml = response.data;
     let result = convert.xml2json(xml, { compact: true, spaces: 4 });
@@ -173,13 +152,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <UserSearch onSubmit={this.onSearchSubmit} />
+        <UserSearch onSubmit={this.searchAuthorId} />
         <div className="container-fluid">
           <div className="row justify-content-center mt-4 mb-3">
             <h4 className="border-bottom">{this.state.authorName}</h4>
           </div>
-
-          {/* send books */}
           {this.state.loadingBooks ? (
             <LoadingIcon />
           ) : (

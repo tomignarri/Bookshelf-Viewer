@@ -10,7 +10,6 @@ class BookDisplayCard extends React.Component {
     };
   }
 
-  // Fetch full sized image from Open Library.
   fetchImage = async () => {
     this.setState({ loadingCover: true });
     try {
@@ -19,8 +18,6 @@ class BookDisplayCard extends React.Component {
     } catch (error) {
       this.setState({ loadingCover: false });
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
@@ -34,10 +31,8 @@ class BookDisplayCard extends React.Component {
         }
         alert(error.response.statusText);
       } else if (error.request) {
-        // The request was made but no response was received.
         console.log(error.request);
       } else {
-        // Something happened in setting up the request that triggered an error.
         console.log("Error", error.message);
       }
       console.log(error.config);
@@ -80,7 +75,6 @@ class BookDisplayCard extends React.Component {
   // to the next or previous book.
   componentDidUpdate(prevProps) {
     if (this.props.currentBook !== prevProps.currentBook) {
-      // this.setState({ coverUrl: this.props.currentBook.cover });
       this.fetchImage();
     }
   }

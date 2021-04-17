@@ -1,6 +1,6 @@
 import React from "react";
 import BookThumbnail from "./BookThumbnail";
-import BookDisplay from "./BookDisplay";
+import BookDisplayContainer from "./BookDisplayContainer";
 import "../styles/style.css";
 
 class Gallery extends React.Component {
@@ -37,7 +37,7 @@ class Gallery extends React.Component {
             {this.props.books[0].author}
           </div>
 
-          <BookDisplay
+          <BookDisplayContainer
             selectedBookIndex={this.state.bookIndex}
             allBooks={this.props.books}
           />

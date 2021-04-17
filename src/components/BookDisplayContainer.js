@@ -1,7 +1,7 @@
 import React from "react";
 import BookDisplayCard from "./BookDisplayCard";
 
-class BookDisplay extends React.Component {
+class BookDisplayContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -13,8 +13,6 @@ class BookDisplay extends React.Component {
     };
   }
 
-  // Iterate displayed book and handle being at
-  // the end or the beginning of the array.
   scrollDisplayBook(newIndex) {
     const bookAmount = this.props.allBooks.length;
     if (newIndex < 0) {
@@ -34,7 +32,6 @@ class BookDisplay extends React.Component {
     });
   }
 
-  // Touchscreen touches start.
   touchStart = event => {
     const touchObj = event.touches[0];
     this.setState({
@@ -53,8 +50,6 @@ class BookDisplay extends React.Component {
     });
   };
 
-  // Find the difference between touch start and end along
-  // the x-axis to determine the direction of the swipe.
   touchEnd = () => {
     if (
       Math.abs(this.state.touchStartX - this.state.touchCurrentX) >
@@ -96,40 +91,17 @@ class BookDisplay extends React.Component {
             </button>
           </div>
 
-          {/* <div className="d-flex flex-column justify-content-center buttonColumn">
-            <button
-              type="button"
-              className="btn btn-light btn-lg d-none d-sm-block d-md-block d-lg-block d-xl-block mr-2 bookNext"
-              onClick={() =>
-                this.scrollDisplayBook(this.state.selectedBookIndex - 1)
-              }
-            >
-              <i className="fas fa-long-arrow-alt-left" />
-            </button>
-          </div> */}
           <div className="d-flex">
-            {/* send data to bookdisplaycard */}
             <BookDisplayCard
               currentIndex={this.state.selectedBookIndex}
               currentBook={this.props.allBooks[this.state.selectedBookIndex]}
             />
-            {/* render next book */}
           </div>
-          {/* <div className="d-flex flex-column justify-content-center buttonColumn">
-            <button
-              type="button"
-              className="btn btn-light btn-lg d-none d-sm-block d-md-block d-lg-block d-xl-block ml-2 bookNext"
-              onClick={() =>
-                this.scrollDisplayBook(this.state.selectedBookIndex + 1)
-              }
-            >
-              <i className="fas fa-long-arrow-alt-right" />
-            </button>
-          </div> */}
+          
         </div>
       </div>
     );
   }
 }
 
-export default BookDisplay;
+export default BookDisplayContainer;

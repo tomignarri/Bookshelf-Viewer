@@ -2,7 +2,7 @@
 import React from "react";
 import "../styles/style.css";
 
-class BookCard extends React.Component {
+class BookThumbnail extends React.Component {
   // Send selected book index number backwards to Gallery component.
   showBookDisplay = index => {
     this.props.bookSelected(index);
@@ -24,4 +24,4 @@ class BookCard extends React.Component {
   }
 }
 
-export default BookCard;
+export default BookThumbnail;

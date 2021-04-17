@@ -1,5 +1,5 @@
 import React from "react";
-import BookCard from "./BookCard";
+import BookThumbnail from "./BookThumbnail";
 import BookDisplay from "./BookDisplay";
 import "../styles/style.css";
 
@@ -55,7 +55,7 @@ class Gallery extends React.Component {
   render() {
     const books = this.props.books.map((book, index) => {
       return (
-        <BookCard
+        <BookThumbnail
           key={book.id}
           book={book}
           bookSelected={this.bookSelected}

@@ -97,7 +97,6 @@ class BookDisplayContainer extends React.Component {
               currentBook={this.props.allBooks[this.state.selectedBookIndex]}
             />
           </div>
-          
         </div>
       </div>
     );

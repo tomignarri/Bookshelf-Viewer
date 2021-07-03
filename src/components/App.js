@@ -18,7 +18,8 @@ class App extends React.Component {
       books: [],
       authorId: "",
       loadingBooks: false,
-      authorName: "Enter an author name."
+      authorName:
+        ""
     };
   }
 
@@ -157,6 +158,10 @@ class App extends React.Component {
           <div className="row justify-content-center mt-4 mb-3">
             <h4 className="border-bottom">{this.state.authorName}</h4>
           </div>
+          <p>
+          The Goodreads api that was used for this project is no longer available.
+          You may view the source code <a href="https://github.com/tomignarri/Bookshelf-Viewer">here</a>.
+          </p>
           {this.state.loadingBooks ? (
             <LoadingIcon />
           ) : (
